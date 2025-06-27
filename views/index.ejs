@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="FbiooGames - Free Random Video Chat with Strangers | Free Video Chat with random">
+  <meta name="description" content="Connect with random people worldwide via video chat. Safe, anonymous, and fun! Meet new friends instantly on StrangerMeet by FbiooGames, Best Free Video chat with strangers or random.">
+  <meta name="keywords" content="random video chat, chat with strangers, online video chat, meet new people, FbiooGames, StrangerMeet, Free random video chat, top best free video chat, best random video chat">
+
+  <!-- Open Graph / Facebook (For Social Sharing) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FbiooGames - Random Video Chat with Strangers">
+  <meta property="og:description" content="Connect with random people worldwide via video chat. Safe, anonymous, and fun!">
+
+  <!-- Twitter Meta Tags -->
+  <meta property="twitter:title" content="FbiooGames - Random Video Chat with Strangers">
+  <meta property="twitter:description" content="Connect with random people worldwide via video chat. Safe, anonymous, and fun!">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <style>
+    :root {
+      --primary: #6c5ce7;
+      --primary-dark: #5649c5;
+      --secondary: #a29bfe;
+      --dark: #2d3436;
+      --light: #f5f6fa;
+      --danger: #ff7675;
+      --success: #00b894;
+      --glass: rgba(255, 255, 255, 0.1);
+      --glass-dark: rgba(0, 0, 0, 0.2);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* Floating Background Elements */
+    .floating-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      animation: float 15s infinite ease-in-out;
+    }
+
+    .circle-1 {
+      width: 300px;
+      height: 300px;
+      background: var(--primary);
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .circle-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--secondary);
+      bottom: 10%;
+      right: 10%;
+      animation-delay: 2s;
+    }
+
+    .circle-3 {
+      width: 200px;
+      height: 200px;
+      background: var(--success);
+      top: 50%;
+      right: 20%;
+      animation-delay: 4s;
+    }
+
+    /* Navigation Bar Styles */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 20px var(--glass-dark);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    nav.scrolled {
+      padding: 0.5rem 2rem;
+      background: rgba(44, 62, 80, 0.95);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--light);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-logo i {
+      margin-right: 10px;
+      color: var(--secondary);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo:hover i {
+      transform: rotate(15deg);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    .nav-links li {
+      margin-left: 2rem;
+      position: relative;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .nav-links a i {
+      margin-right: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover i {
+      transform: scale(1.2);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Main Content Styles */
+    .container {
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .logo {
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .logo h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      background: linear-gradient(to right, #fff, #a29bfe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientShift 8s infinite alternate;
+    }
+
+    .logo p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 18px 45px;
+      background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+      color: var(--light);
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      margin: 1rem 0;
+      animation: pulse 2s infinite;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn i {
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover i {
+      transform: rotate(15deg);
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 4rem 0;
+      perspective: 1000px;
+    }
+
+    .feature {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      width: 30%;
+      min-width: 250px;
+      margin: 1rem;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      box-shadow: 0 8px 32px var(--glass-dark);
+      transform-style: preserve-3d;
+    }
+
+    .feature:hover {
+      transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.03);
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    .feature i {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary);
+      transition: all 0.5s ease;
+    }
+
+    .feature:hover i {
+      transform: scale(1.2) rotate(15deg);
+    }
+
+    .feature h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .feature h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .feature:hover h3::after {
+      width: 100%;
+    }
+
+    .feature p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Steps Section */
+    .steps-container {
+      margin: 5rem 0;
+    }
+
+    .steps-container h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .steps-container h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 3px;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 250px;
+      margin: 1rem;
+      padding: 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .step:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .step span {
+      display: block;
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--light);
+    }
+
+    .step p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      margin: 5rem 0;
+      text-align: left;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .faq-container h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .faq-container h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 3px;
+    }
+
+    .faq-item {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .faq-item h3 {
+      padding: 1.5rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0;
+    }
+
+    .faq-item h3::after {
+      content: '+';
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item.active h3::after {
+      content: '-';
+    }
+
+    .faq-item p {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin: 0;
+      opacity: 0;
+    }
+
+    .faq-item.active p {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    /* CTA Section */
+    .cta {
+      margin: 5rem 0;
+      padding: 3rem 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: all 0.4s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .cta .small {
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      opacity: 0.7;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 5rem;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--light);
+      text-decoration: none;
+      margin: 0 1rem;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--secondary);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+   .user-counter {
+  /* Base styles */
+  margin-right: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 24px;
+  border: none;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: default;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  /* Pulse animation for attention */
+  animation: subtlePulse 3s infinite;
+}
+
+.user-counter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-counter .icon {
+  font-size: 16px;
+}
+
+.user-counter .count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+@keyframes subtlePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+      50% { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+      100% { transform: scale(1); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .feature, .step {
+        width: 45%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: rgba(44, 62, 80, 0.98);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      }
+
+      .nav-links.active {
+        left: 0;
+      }
+
+      .nav-links li {
+        margin: 1.5rem 0;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.4s ease;
+      }
+
+      .nav-links.active li {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+      .nav-links.active li:nth-child(2) { transition-delay: 0.2s; }
+      .nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
+      .nav-links.active li:nth-child(4) { transition-delay: 0.4s; }
+      .nav-links.active li:nth-child(5) { transition-delay: 0.5s; }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .container {
+        padding-top: 6rem;
+      }
+
+      .logo h1 {
+        font-size: 2rem;
+      }
+
+      .feature, .step {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Background Elements -->
+  <div class="floating-bg">
+    <div class="floating-circle circle-1"></div>
+    <div class="floating-circle circle-2"></div>
+    <div class="floating-circle circle-3"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <i class="fas fa-random"></i>
+      <span>FbiooGames</span>
+    </a>
+    
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <i class="fas fa-bars" id="menuIcon"></i>
+    </button>
+    
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="/contact"><i class="fas fa-cog"></i> Contact Us</a></li>
+      <li><a href="/legal"><i class="fas fa-user"></i> Term & Policy</a></li>
+      
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="logo">
+      <h1>Free Random Video Chat with Strangers | Free Video Chat with random</h1>
+      <p>Welcome to <strong>StrangerMeet by FbiooGames</strong> – the safest way to <strong>video chat with random people worldwide</strong>. No registration required! Just click "Start Chat" and connect instantly with friendly strangers.</p>
+    </div>
+   <button id="userCount" class="user-counter">
+  <span class="icon">👥</span>
+  <span class="count">0</span>
+  <span class="label">Online Users</span>
+</button>
+    <button id="startChat" class="btn">
+      <i class="fas fa-video"></i> Start Random Chat
+    </button>
+    
+    <div class="features">
+      <div class="feature">
+        <i class="fas fa-globe"></i>
+        <h3>Global Stranger Chat</h3>
+        <p>Connect with <strong>people from 100+ countries</strong> in real-time. Experience different cultures and make friends worldwide!</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-shield-alt"></i>
+        <h3>100% Safe & Anonymous</h3>
+        <p>Your privacy matters. We use <strong>end-to-end encryption</strong> and moderation to keep chats safe and fun.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-bolt"></i>
+        <h3>Instant Connections</h3>
+        <p>No waiting rooms! <strong>Get matched in seconds</strong> with our lightning-fast algorithm.</p>
+      </div>
+    </div>
+
+    <!-- Steps Section -->
+    <div class="steps-container">
+      <h2>How to Start Random Video Chatting in 3 Easy Steps</h2>
+      <div class="steps">
+        <div class="step">
+          <span>1</span>
+          <h3>Click "Start Chat"</h3>
+          <p>No downloads or sign-ups needed. Just tap the button!</p>
+        </div>
+        <div class="step">
+          <span>2</span>
+          <h3>Get Matched Instantly</h3>
+          <p>Our system connects you with a random partner in seconds.</p>
+        </div>
+        <div class="step">
+          <span>3</span>
+          <h3>Talk & Make Friends</h3>
+          <p>Chat as long as you want or click "Next" to meet someone new!</p>
+        </div>
+      </div>
+    </div>
+<div class="steps-container">
+  
+  <h2>OMEGLE VIDEO CHAT & TALK TO STRANGERS</h2>
+  <div class="steps">
+  <div class="step">
+<h3>#1 Random Video Chat Platform</h3>
+<p>FbiooGames is the premier platform for live video chat, seamlessly connecting you with new people both locally and globally. Experience FbiooGames real-time surprises, authentic excitement, and meaningful interactions on any device or web browser—enjoy the same exhilarating environment, now with even more ways to engage.</p>
+  </div>
+   <div class="step">
+<h3>Alternative to Omegle & OmeTV</h3>
+<p>FbiooGames brings the thrill of random video chat, enabling you to meet new people from around the world in real-time. It serves as an excellent alternative to Omegle or OmeTV for those seeking exciting Omegle chat or the opportunity to talk to strangers.</p>
+  </div>
+  </div>
+</div>
+    <!-- FAQ Section -->
+    <div class="faq-container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <h3>Is StrangerMeet free to use?</h3>
+          <p><strong>Yes! 100% free</strong> – no hidden charges. Just click and chat.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Is this like Omegle or Chatroulette?</h3>
+          <p>Yes, but <strong>safer and faster</strong>. We moderate chats to prevent abuse.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I remain anonymous?</h3>
+          <p>Absolutely! No registration needed. <strong>Your privacy is protected</strong>.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I Use FbiooGames Anytime and Anywhere?</h3>
+          <p>FbiooGames offers the best of both worlds, allowing users to seamlessly connect with new people using its mobile app or website. Whether you're on the go or at your computer, FbiooGames adaptability ensures a hassle-free experience for everyone. Its broad accessibility and focus on spontaneous video chats enable you to interact freely with others, anytime and anywhere, while ensuring your safety.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Why Choose FbiooGames for Engaging with New Connections?</h3>
+          <p>FbiooGames offers a feature-rich platform, akin to well-established social chat platforms like Omegle, OmeTV, Chatroulette, and AzarLive. What truly sets FbiooGames apart is its unwavering commitment to excellence in social networking. It aims to provide the most polished alternative, emphasizing user experience, safety, and the opportunity to engage in lively conversations, connecting you with strangers from around the world. With FbiooGames, you can easily talk to strangers and make new connections.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta">
+      <h2>Ready to Meet Someone New?</h2>
+      <p>Join <strong>thousands of users</strong> now and start your random video chat adventure!</p>
+      <button id="startChat2" class="btn">
+        <i class="fas fa-play"></i> Start Chatting Now
+      </button>
+      <p class="small">No registration required – Just click and go!</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-links">
+        <a href="/legal" title="Privacy Policy">Privacy Policy</a>
+        <a href="/legal" title="Terms of Service">Terms</a>
+        
+        <a href="/contact" title="Contact Us">Contact</a>
+      </div>
+      <p>© 2024 <strong>StrangerMeet by FbiooGames</strong> – The Best Random Video Chat Platform</p>
+    </footer>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const startBtn = document.getElementById('startChat');
+    const startBtn2 = document.getElementById('startChat2');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const menuIcon = document.getElementById('menuIcon');
+    const navbar = document.getElementById('navbar');
+    const faqItems = document.querySelectorAll('.faq-item');
+
+
+   // counter
+
+       socket.on('connect', () => {
+      console.log('Connected:', socket.id);
+    });
+
+    // Update user count
+    socket.on('updateUserCount', (count) => {
+      console.log('Online users:', count);
+      document.getElementById('userCount').innerText = 'Online Users: ' + count;
+    });
+
+    // Mobile menu toggle
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      
+      // Change icon based on menu state
+      if (navLinks.classList.contains('active')) {
+        menuIcon.classList.remove('fa-bars');
+        menuIcon.classList.add('fa-times');
+      } else {
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars');
+      }
+    });
+    
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars');
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Button hover effect enhancement
+    startBtn.addEventListener('mouseenter', () => {
+      startBtn.style.animation = 'none';
+    });
+
+    startBtn.addEventListener('mouseleave', () => {
+      startBtn.style.animation = 'pulse 2s infinite';
+    });
+    
+    startBtn.addEventListener('click', () => {
+      startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finding someone...';
+      startBtn.style.animation = 'none';
+      socket.emit('join-queue');
+    });
+
+    startBtn2.addEventListener('click', () => {
+      startBtn2.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finding someone...';
+      startBtn2.style.animation = 'none';
+      socket.emit('join-queue');
+    });
+    
+    socket.on('waiting', () => {
+      startBtn.innerHTML = '<i class="fas fa-user-clock"></i> Waiting for someone...';
+      startBtn2.innerHTML = '<i class="fas fa-user-clock"></i> Waiting for someone...';
+    });
+    
+    socket.on('start-chat', (roomId) => {
+      window.location.href = `/chat?room=${roomId}`;
+    });
+
+    // FAQ toggle functionality
+    faqItems.forEach(item => {
+      const question = item.querySelector('h3');
+      question.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+
+    // Animate elements on scroll
+    const animateOnScroll = (elements, className) => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(className);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      elements.forEach(element => {
+        observer.observe(element);
+      });
+    };
+
+    // Animate features
+    const features = document.querySelectorAll('.feature');
+    features.forEach(feature => {
+      feature.style.opacity = '0';
+      feature.style.transform = 'translateY(20px)';
+      feature.style.transition = 'all 0.6s ease';
+    });
+    animateOnScroll(features, 'animated');
+
+    // Animate steps
+    const steps = document.querySelectorAll('.step');
+    steps.forEach((step, index) => {
+      step.style.opacity = '0';
+      step.style.transform = 'translateY(20px)';
+      step.style.transition = `all 0.6s ease ${index * 0.1}s`;
+    });
+    animateOnScroll(steps, 'animated');
+
+    // Add animated class styles
+    const style = document.createElement('style');
+    style.textContent = `
+      .feature.animated {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      .step.animated {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+     // Add this code for user counting functionality
+     
+  </script>
+ 
+</body>
+</html>
