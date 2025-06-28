@@ -138,7 +138,7 @@ app.get('/legal', (req, res) => {
 
  PORT = process.env.PORT || 3000;io = require('socket.io')(server, {
   cors: {
-    origin: ["https://your-render-url.onrender.com", "http://localhost:3000"],
+    origin: ["https://strangermeet1.onrender.com/", "http://localhost:3000"],
     methods: ["GET", "POST"]
   }
 });
