@@ -404,7 +404,7 @@
       }
 
       #controls {
-        bottom: calc(var(--mobile-footer-height) + 100px);
+        bottom: calc(var(--mobile-footer-height) + 50px);
       }
 
       .ad-container {
@@ -439,18 +439,8 @@
 <body>
   <!-- Video Container -->
   <div id="video-container">
-    <!-- Local Video -->
-    <div class="video-box" id="local-video-box">
-      <video id="local-video" autoplay muted></video>
-        <div class="user-info">
-        <i class="fas fa-user"></i>
-        <span id="remote-username">Stranger</span>
-      </div>
-    
-    </div>
-    
     <!-- Remote Video -->
-    <div class="video-box" id="remote-video-box">
+     <div class="video-box" id="remote-video-box">
       <div class="loader" id="loader">
         <div class="spinner"></div>
         <p>Connecting to stranger...</p>
@@ -458,7 +448,7 @@
       <video id="remote-video" autoplay></video>
       <div class="user-info">
         <i class="fas fa-user"></i>
-        <span>You</span>
+        <span>Stranger</span>
       </div>
       <div id="typing-indicator">
         <div class="typing-dots">
@@ -468,6 +458,17 @@
         </div>
         <span>is typing...</span>
       </div>
+    </div>
+  
+    
+    <!-- Local Video -->
+      <div class="video-box" id="local-video-box">
+      <video id="local-video" autoplay muted></video>
+        <div class="user-info">
+        <i class="fas fa-user"></i>
+        <span id="remote-username">You</span>
+      </div>
+    
     </div>
   </div>
 
@@ -807,5 +808,10 @@ socket.on('partner-disconnected', () => {
     window.addEventListener('resize', handleResponsiveChanges);
     window.addEventListener('load', handleResponsiveChanges);
   </script>
+
+
+
+
+
 </body>
 </html>

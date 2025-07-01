@@ -6,4 +6,3 @@ const myPeer = new Peer(userId, {
     ]
   }
 });
-

@@ -128,11 +128,14 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Route for Legal Page
 app.get('/legal', (req, res) => {
-    res.render('legal', {
-        appName: "FbiooGames",
-        supportEmail: "ak786lawa@gmail.com",
-        isAuthenticated: req.isAuthenticated ? req.isAuthenticated() : false,
-        currentYear: new Date().getFullYear()
-    });
+  res.render('legal', {
+    appName: "FbiooGames",
+    supportEmail: "ak786lawa@gmail.com",
+    isAuthenticated: req.isAuthenticated ? req.isAuthenticated() : false,
+    currentYear: new Date().getFullYear()
+  });
 });
+
+
+
 
