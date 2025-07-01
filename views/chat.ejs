@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FbiooGames - Video Chat</title>
-   <meta name="description" content="Connect with random people worldwide via video chat. Safe, anonymous, and fun! Meet new friends instantly on StrangerMeet by FbiooGames, Best Free Video chat with strangers or random.">
-  <meta name="keywords" content="random video chat, chat with strangers, online video chat, meet new people, FbiooGames, StrangerMeet, Free random video chat, top best free video chat, best random video chat">
+  <meta name="description"
+    content="Connect with random people worldwide via video chat. Safe, anonymous, and fun! Meet new friends instantly on StrangerMeet by FbiooGames, Best Free Video chat with strangers or random.">
+  <meta name="keywords"
+    content="random video chat, chat with strangers, online video chat, meet new people, FbiooGames, StrangerMeet, Free random video chat, top best free video chat, best random video chat">
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5CD3Q7YK0M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CD3Q7YK0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-5CD3Q7YK0M');
-</script>
+    gtag('config', 'G-5CD3Q7YK0M');
+  </script>
   <style>
     :root {
       /* Color Scheme */
@@ -27,7 +30,7 @@
       --light: #f5f6fa;
       --danger: #ff7675;
       --success: #00b894;
-      
+
       /* Spacing System */
       --footer-height: 100px;
       --controls-height: 80px;
@@ -63,7 +66,7 @@
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
-       box-shadow: 5px 0px 0px 10px  yellow;
+      box-shadow: 5px 0px 0px 10px yellow;
     }
 
     .video-box::before {
@@ -73,7 +76,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0, 0, 0, 0.3);
       z-index: 1;
       transition: all 0.3s ease;
     }
@@ -99,7 +102,7 @@
       bottom: 20px;
       left: 20px;
       z-index: 2;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       padding: 10px 15px;
       border-radius: 20px;
       display: flex;
@@ -124,7 +127,7 @@
     .spinner {
       width: 50px;
       height: 50px;
-      border: 5px solid rgba(255,255,255,0.3);
+      border: 5px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
       border-top-color: var(--primary);
       animation: spin 1s ease-in-out infinite;
@@ -138,24 +141,24 @@
       left: 0;
       right: 0;
       height: var(--footer-height);
-      background: rgba(0,0,0,0.8);
+      background: rgba(0, 0, 0, 0.8);
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 90;
-      
+
     }
 
     .ad-container {
       width: 100%;
       max-width: 970px;
       height: 150px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
     }
 
     /* Controls */
@@ -167,7 +170,7 @@
       display: flex;
       gap: 15px;
       z-index: 100;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       padding: 10px 20px;
       border-radius: 50px;
       backdrop-filter: blur(10px);
@@ -177,7 +180,7 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       border: none;
       color: white;
       font-size: 1.2rem;
@@ -190,7 +193,7 @@
 
     .control-btn:hover {
       transform: scale(1.1);
-      background: rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.3);
     }
 
     #end-btn {
@@ -204,20 +207,20 @@
       bottom: calc(var(--footer-height) + var(--chat-bottom-space));
       width: 350px;
       max-height: 50vh;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
       border-radius: 15px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
       z-index: 100;
       transition: all 0.3s ease;
     }
 
     #chat-header {
       padding: 15px;
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -254,7 +257,7 @@
     }
 
     .local {
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       color: var(--dark);
       margin-left: auto;
       border-bottom-right-radius: 5px;
@@ -271,8 +274,8 @@
     #message-form {
       display: flex;
       padding: 10px;
-      background: rgba(0,0,0,0.1);
-      border-top: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0, 0, 0, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     #message-input {
@@ -280,7 +283,7 @@
       padding: 12px 15px;
       border: none;
       border-radius: 20px;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       outline: none;
       font-size: 14px;
       color: #333;
@@ -343,17 +346,34 @@
 
     /* Animations */
     @keyframes messageIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes typing {
-      0%, 60%, 100% { transform: translateY(0); }
-      30% { transform: translateY(-5px); }
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+      }
+
+      30% {
+        transform: translateY(-5px);
+      }
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     /* Responsive Breakpoints */
@@ -369,7 +389,7 @@
         --footer-height: 80px;
         --chat-bottom-space: 100px;
       }
-      
+
       #chat-box {
         width: 300px;
       }
@@ -393,7 +413,7 @@
 
       .video-box {
         height: 50vh;
-        box-shadow: 0px 0px 5px  yellow;
+        box-shadow: 0px 0px 5px yellow;
       }
 
       #chat-box {
@@ -409,7 +429,7 @@
 
       .ad-container {
         height: 150px;
-        
+
       }
     }
 
@@ -436,11 +456,12 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Video Container -->
   <div id="video-container">
     <!-- Remote Video -->
-     <div class="video-box" id="remote-video-box">
+    <div class="video-box" id="remote-video-box">
       <div class="loader" id="loader">
         <div class="spinner"></div>
         <p>Connecting to stranger...</p>
@@ -459,16 +480,16 @@
         <span>is typing...</span>
       </div>
     </div>
-  
-    
+
+
     <!-- Local Video -->
-      <div class="video-box" id="local-video-box">
+    <div class="video-box" id="local-video-box">
       <video id="local-video" autoplay muted></video>
-        <div class="user-info">
+      <div class="user-info">
         <i class="fas fa-user"></i>
         <span id="remote-username">You</span>
       </div>
-    
+
     </div>
   </div>
 
@@ -506,12 +527,7 @@
     </div>
     <div id="messages"></div>
     <form id="message-form">
-      <input 
-        type="text" 
-        id="message-input" 
-        placeholder="Type a message..." 
-        autocomplete="off"
-      >
+      <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
       <button type="submit" id="send-btn">
         <i class="fas fa-paper-plane"></i>
       </button>
@@ -524,7 +540,7 @@
     // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const roomId = urlParams.get('room') || '<%= roomId %>';
-    
+
     // DOM elements
     const localVideo = document.getElementById('local-video');
     const remoteVideo = document.getElementById('remote-video');
@@ -542,7 +558,7 @@
     const messageInput = document.getElementById('message-input');
     const typingIndicator = document.getElementById('typing-indicator');
     const footerSpace = document.getElementById('footer-space');
-    
+
     // State variables
     let localStream;
     let peer;
@@ -550,22 +566,22 @@
     let isMuted = false;
     let isVideoOff = false;
     let isChatOpen = true;
-    
+
     // Initialize Socket.io
     const socket = io();
-    
+
     // Initialize PeerJS with random ID
     peer = new Peer();
-    
+
     // Focus the input when chat is opened
     messageInput.focus();
-    
+
     // Handle form submission
     messageForm.addEventListener('submit', (e) => {
       e.preventDefault();
       sendMessage();
     });
-    
+
     // Also allow sending with Enter key
     messageInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
@@ -573,7 +589,7 @@
         sendMessage();
       }
     });
-    
+
     // Typing detection
     let typingTimeout;
     messageInput.addEventListener('input', () => {
@@ -583,61 +599,61 @@
         socket.emit('typing', roomId, false);
       }, 1000);
     });
-    
+
     function sendMessage() {
       const message = messageInput.value.trim();
       if (message) {
         // Emit the message to the server
         socket.emit('chat-message', roomId, message);
-        
+
         // Add to local chat
         addMessage(message, true);
-        
+
         // Clear input and refocus
         messageInput.value = '';
         messageInput.focus();
-        
+
         // Stop typing indicator
         socket.emit('typing', roomId, false);
       }
     }
-    
+
     function addMessage(message, isLocal = false) {
       const messageElement = document.createElement('div');
       messageElement.className = `message ${isLocal ? 'local' : 'remote'}`;
-      
+
       // Add timestamp
       const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       messageElement.innerHTML = `
         <div class="message-content">${message}</div>
         <div class="message-time">${timestamp}</div>
       `;
-      
+
       messages.appendChild(messageElement);
       messages.scrollTop = messages.scrollHeight;
     }
-    
+
     // Toggle chat visibility
     function toggleChat() {
       isChatOpen = !isChatOpen;
       chatBox.style.display = isChatOpen ? 'flex' : 'none';
-      
+
       // On mobile, hide footer when chat is open
       if (window.innerWidth <= 768) {
         footerSpace.style.display = isChatOpen ? 'none' : 'flex';
       }
-      
+
       // Focus input when chat becomes visible
       if (isChatOpen) {
         messageInput.focus();
       }
     }
-    
+
     // Make sure chat box is clickable
     chatBox.addEventListener('click', (e) => {
       e.stopPropagation();
     });
-    
+
     // Initialize video chat
     peer.on('open', (id) => {
       // Get user media
@@ -645,21 +661,21 @@
         .then(stream => {
           localStream = stream;
           localVideo.srcObject = stream;
-          
+
           // Notify server we're ready to connect
           socket.emit('ready', roomId, id);
-          
+
           // Listen for incoming calls
           peer.on('call', call => {
             call.answer(localStream);
             currentCall = call;
-            
+
             call.on('stream', remoteStream => {
               remoteVideo.srcObject = remoteStream;
               loader.style.display = 'none';
               remoteVideoBox.classList.add('active');
             });
-            
+
             call.on('close', endCall);
           });
         })
@@ -667,75 +683,75 @@
           console.error('Failed to get local stream', err);
         });
     });
-    
-    // Global variable to track if we're already trying to reconnect
-let isReconnecting = false;
 
-// Handle partner disconnection
-socket.on('partner-disconnected', () => {
-  if (isReconnecting) return;
-  
-  isReconnecting = true;
-  
-  // Show notification
-  const notification = document.createElement('div');
-  notification.className = 'notification';
-  notification.innerHTML = `
+    // Global variable to track if we're already trying to reconnect
+    let isReconnecting = false;
+
+    // Handle partner disconnection
+    socket.on('partner-disconnected', () => {
+      if (isReconnecting) return;
+
+      isReconnecting = true;
+
+      // Show notification
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.innerHTML = `
     <i class="fas fa-user-slash"></i>
     <span>Stranger disconnected. Finding someone new...</span>
   `;
-  document.body.appendChild(notification);
-  
-  // Clean up current connection
-  if (currentCall) {
-    currentCall.close();
-  }
-  if (localStream) {
-    localStream.getTracks().forEach(track => track.stop());
-  }
-  
-  // Remove notification after delay
-  setTimeout(() => {
-    notification.remove();
-  }, 3000);
-  
-  // Rejoin the queue
-  const preferences = {
-    language: null,
-    interests: []
-  };
-  socket.emit('join-queue', preferences);
-});
-// yahi hai uper gloabal
+      document.body.appendChild(notification);
+
+      // Clean up current connection
+      if (currentCall) {
+        currentCall.close();
+      }
+      if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+      }
+
+      // Remove notification after delay
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+
+      // Rejoin the queue
+      const preferences = {
+        language: null,
+        interests: []
+      };
+      socket.emit('join-queue', preferences);
+    });
+    // yahi hai uper gloabal
     // Handle signaling from server
     socket.on('user-connected', (userId) => {
       // Call the other user
       const call = peer.call(userId, localStream);
       currentCall = call;
-      
+
       call.on('stream', remoteStream => {
         remoteVideo.srcObject = remoteStream;
         loader.style.display = 'none';
         remoteVideoBox.classList.add('active');
       });
-      
+
       call.on('close', endCall);
     });
-    
+
     socket.on('user-disconnected', () => {
       endCall();
     });
-    
+
     // Handle incoming messages
     socket.on('chat-message', (message) => {
       addMessage(message, false);
     });
-    
+
     // Handle typing indicators
     socket.on('typing', (isTyping) => {
       typingIndicator.style.display = isTyping ? 'block' : 'none';
     });
-    
+
     // Control buttons
     muteBtn.addEventListener('click', () => {
       const audioTracks = localStream.getAudioTracks();
@@ -745,7 +761,7 @@ socket.on('partner-disconnected', () => {
       });
       muteBtn.innerHTML = isMuted ? '<i class="fas fa-microphone-slash"></i>' : '<i class="fas fa-microphone"></i>';
     });
-    
+
     videoBtn.addEventListener('click', () => {
       const videoTracks = localStream.getVideoTracks();
       isVideoOff = !isVideoOff;
@@ -755,10 +771,10 @@ socket.on('partner-disconnected', () => {
       videoBtn.innerHTML = isVideoOff ? '<i class="fas fa-video-slash"></i>' : '<i class="fas fa-video"></i>';
       localVideoBox.classList.toggle('active', !isVideoOff);
     });
-    
+
     chatBtn.addEventListener('click', toggleChat);
     chatToggle.addEventListener('click', toggleChat);
-    
+
     // End call function
     function endCall() {
       if (currentCall) {
@@ -769,14 +785,14 @@ socket.on('partner-disconnected', () => {
       }
       socket.emit('leave-room', roomId);
       remoteVideo.srcObject = null;
-      
+
       setTimeout(() => {
         window.location.href = '/';
       }, 1500);
     }
-    
+
     endBtn.addEventListener('click', endCall);
-    
+
     // Handle page refresh/close
     window.addEventListener('beforeunload', endCall);
 
@@ -787,7 +803,6 @@ socket.on('partner-disconnected', () => {
       "Sponsored: For sponsor contact ak786lawa@gmail.com",
       "Advertisement: Partner with us today"
     ];
-    
     let currentAd = 0;
     setInterval(() => {
       currentAd = (currentAd + 1) % ads.length;
@@ -808,10 +823,6 @@ socket.on('partner-disconnected', () => {
     window.addEventListener('resize', handleResponsiveChanges);
     window.addEventListener('load', handleResponsiveChanges);
   </script>
-
-
-
-
-
 </body>
+
 </html>
