@@ -199,6 +199,11 @@ io.on('connection', (socket) => {
   });
 });
 
+app.get("/health", (req, res) => {
+  console.log("Health check pinged at", new Date());
+  res.send("OK");
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
