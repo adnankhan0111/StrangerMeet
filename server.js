@@ -199,6 +199,8 @@ io.on('connection', (socket) => {
   });
 });
 
+app.use(express.static('public'));
+
 app.get("/health", (req, res) => {
   console.log("Health check pinged at", new Date());
   res.send("OK");
