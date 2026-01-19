@@ -199,6 +199,11 @@ io.on('connection', (socket) => {
   });
 });
 
+app.get('/sitemap.xml', (req, res) => {
+  res.header('Content-Type', 'application/xml');
+  res.sendFile(__dirname + '/public/sitemap.xml');
+});
+
 app.use(express.static('public'));
 
 app.get("/health", (req, res) => {
