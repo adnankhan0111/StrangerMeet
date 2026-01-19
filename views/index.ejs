@@ -486,14 +486,14 @@
       margin-right: auto;
     }
 
-    .faq-container h2 {
+    .faq-container h3 {
       font-size: 2rem;
       margin-bottom: 2rem;
       text-align: center;
       position: relative;
     }
 
-    .faq-container h2::after {
+    .faq-container h3::after {
       content: '';
       position: absolute;
       bottom: -10px;
@@ -520,7 +520,7 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
-    .faq-item h3 {
+    .faq-item h4 {
       padding: 1.5rem;
       font-size: 1.1rem;
       cursor: pointer;
@@ -530,13 +530,13 @@
       margin: 0;
     }
 
-    .faq-item h3::after {
+    .faq-item h4::after {
       content: '+';
       font-size: 1.5rem;
       transition: all 0.3s ease;
     }
 
-    .faq-item.active h3::after {
+    .faq-item.active h4::after {
       content: '-';
     }
 
@@ -571,7 +571,7 @@
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     }
 
-    .cta h2 {
+    .cta h3 {
       font-size: 2rem;
       margin-bottom: 1rem;
     }
@@ -1079,7 +1079,7 @@
 
     // FAQ toggle functionality
     faqItems.forEach(item => {
-      const question = item.querySelector('h3');
+      const question = item.querySelector('h4');
       question.addEventListener('click', () => {
         item.classList.toggle('active');
       });
