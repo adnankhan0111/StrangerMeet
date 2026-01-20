@@ -59,7 +59,7 @@ app.post('/contact', express.urlencoded({ extended: true }), (req, res) => {
 
 app.get('/legal', (req, res) => {
   res.render('legal', {
-    appName: "FbiooGames",
+    appName: "Chatwithstrangers",
     supportEmail: "ak786lawa@gmail.com",
     isAuthenticated: req.isAuthenticated ? req.isAuthenticated() : false,
     currentYear: new Date().getFullYear()
@@ -205,6 +205,10 @@ app.get('/sitemap.xml', (req, res) => {
 });
 
 app.use(express.static('public'));
+app.get('/robots.txt', function (req, res) {
+  res.sendFile(__dirname + '/public/robots.txt');
+});
+
 
 app.get("/health", (req, res) => {
   console.log("Health check pinged at", new Date());
