@@ -199,6 +199,11 @@ io.on('connection', (socket) => {
   });
 });
 
+app.get('/site.webmanifest', (req, res) => {
+  res.setHeader('Content-Type', 'application/manifest+json');
+  res.sendFile(__dirname + '/public/site.webmanifest');
+});
+
 app.get('/sitemap.xml', (req, res) => {
   res.header('Content-Type', 'application/xml');
   res.sendFile(__dirname + '/public/sitemap.xml');
