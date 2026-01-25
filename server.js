@@ -203,6 +203,10 @@ app.get('/site.webmanifest', (req, res) => {
   res.setHeader('Content-Type', 'application/manifest+json');
   res.sendFile(__dirname + '/public/site.webmanifest');
 });
+app.get('/4888f9a737314c7593d767bf2ac2474b.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', '4888f9a737314c7593d767bf2ac2474b.txt'));
+});
+
 
 app.get('/sitemap.xml', (req, res) => {
   res.header('Content-Type', 'application/xml');
