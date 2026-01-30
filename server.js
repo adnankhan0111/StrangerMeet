@@ -8,6 +8,52 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+
+app.get('/sitemap.xml', (req, res) => {
+  res.status(200);
+  res.setHeader('Content-Type', 'application/xml');
+  res.setHeader('Cache-Control', 'no-store');
+
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://chatwithstrangers.fun/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/text-chat/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/chat/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/about/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/contact/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/legal/</loc></url>
+</urlset>`);
+});
+
+
+app.use((req, res, next) => {
+  const host = req.headers.host;
+  const proto = req.headers['x-forwarded-proto'] || 'http';
+
+  // Build final correct URL
+  let finalUrl = 'https://' + host.replace(/^www\./, '') + req.path;
+
+  // Add trailing slash for pages (not files)
+  if (!req.path.endsWith('/') && !req.path.includes('.')) {
+    finalUrl += '/';
+  }
+
+  // Preserve query string
+  const query = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+
+  // If request is already correct, continue
+  if (
+    proto === 'https' &&
+    !host.startsWith('www.') &&
+    (req.path.endsWith('/') || req.path.includes('.'))
+  ) {
+    return next();
+  }
+
+  return res.redirect(301, finalUrl + query);
+});
+
+
 // Set view engine and public folder
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +65,7 @@ let onlineUsers = 0;
 // TEXT CHAT queue and pair storage
 let textQueue = [];
 let textPartners = {};
+
 
 // Routes
 app.get('/', (req, res) => {
@@ -208,38 +255,19 @@ app.get('/4888f9a737314c7593d767bf2ac2474b.txt', (req, res) => {
 });
 
 
-
-
 app.use(express.static('public'));
 app.get('/robots.txt', function (req, res) {
   res.sendFile(__dirname + '/public/robots.txt');
 });
 
-app.get('/sitemap.xml', (req, res) => {
-  res.status(200);
-  res.setHeader('Content-Type', 'application/xml');
-  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
-
-  res.send(`<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://chatwithstrangers.fun/</loc></url>
-  <url><loc>https://chatwithstrangers.fun/text-chat/</loc></url>
-  <url><loc>https://chatwithstrangers.fun/chat/</loc></url>
-  <url><loc>https://chatwithstrangers.fun/about/</loc></url>
-  <url><loc>https://chatwithstrangers.fun/contact/</loc></url>
-  <url><loc>https://chatwithstrangers.fun/legal/</loc></url>
-</urlset>`);
-});
-
-// ⬇️ AFTER sitemap, static files
-app.use(express.static('public'));
 
 app.get("/health", (req, res) => {
   console.log("Health check pinged at", new Date());
   res.send("OK");
 });
+
+// ⬇️ AFTER sitemap, static files
+app.use(express.static('public'));
 
 // Start server
 const PORT = process.env.PORT || 3000;
