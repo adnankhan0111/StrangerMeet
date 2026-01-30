@@ -208,16 +208,33 @@ app.get('/4888f9a737314c7593d767bf2ac2474b.txt', (req, res) => {
 });
 
 
-app.get('/sitemap.xml', (req, res) => {
-  res.header('Content-Type', 'application/xml');
-  res.sendFile(__dirname + '/public/sitemap.xml');
-});
+
 
 app.use(express.static('public'));
 app.get('/robots.txt', function (req, res) {
   res.sendFile(__dirname + '/public/robots.txt');
 });
 
+app.get('/sitemap.xml', (req, res) => {
+  res.status(200);
+  res.setHeader('Content-Type', 'application/xml');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://chatwithstrangers.fun/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/text-chat/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/chat/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/about/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/contact/</loc></url>
+  <url><loc>https://chatwithstrangers.fun/legal/</loc></url>
+</urlset>`);
+});
+
+// ⬇️ AFTER sitemap, static files
+app.use(express.static('public'));
 
 app.get("/health", (req, res) => {
   console.log("Health check pinged at", new Date());
