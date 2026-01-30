@@ -72,16 +72,16 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/chat', (req, res) => {
-  res.render('chat', { roomId: uuidV4() });
+app.get('/chat/', (req, res) => {
+  res.render('chat', { canonicalPath: '/chat/' } { roomId: uuidV4() });
 });
 
-app.get('/text-chat', (req, res) => {
-  res.render('text-chat');
+app.get('/text-chat/', (req, res) => {
+  res.render('text-chat', { canonicalPath: '/text-chat/' });
 });
 
-app.get('/about', (req, res) => {
-  res.render('about', {
+app.get('/about/', (req, res) => {
+  res.render('about', { canonicalPath: '/about/' } { canonicalPath: '/about/' } {
     title: 'About Us',
     team: [
       {
@@ -94,18 +94,18 @@ app.get('/about', (req, res) => {
   });
 });
 
-app.get('/contact', (req, res) => {
-  res.render('contact');
+app.get('/contact/', (req, res) => {
+  res.render('contact', { canonicalPath: '/contact/' });
 });
 
-app.post('/contact', express.urlencoded({ extended: true }), (req, res) => {
+app.post('/contact/', express.urlencoded({ extended: true }), (req, res) => {
   const { name, email, message } = req.body;
   console.log('Contact form submitted:', { name, email, message });
   res.send('Thank you for contacting us!');
 });
 
-app.get('/legal', (req, res) => {
-  res.render('legal', {
+app.get('/legal/', (req, res) => {
+  res.render('legal', { canonicalPath: '/legal/' } {
     appName: "Chatwithstrangers",
     supportEmail: "ak786lawa@gmail.com",
     isAuthenticated: req.isAuthenticated ? req.isAuthenticated() : false,
