@@ -69,7 +69,7 @@ let textPartners = {};
 
 // Routes
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { canonicalPath: '/' });
 });
 
 app.get('/chat/', (req, res) => {
@@ -79,12 +79,17 @@ app.get('/chat/', (req, res) => {
   });
 });
 
+
 app.get('/text-chat/', (req, res) => {
-  res.render('text-chat', { canonicalPath: '/text-chat/' });
+  res.render('text-chat', {
+    canonicalPath: '/text-chat/'
+  });
 });
 
+
 app.get('/about/', (req, res) => {
-  res.render('about', { canonicalPath: '/about/' } { canonicalPath: '/about/' } {
+  res.render('about', {
+    canonicalPath: '/about/',
     title: 'About Us',
     team: [
       {
@@ -97,9 +102,13 @@ app.get('/about/', (req, res) => {
   });
 });
 
+
 app.get('/contact/', (req, res) => {
-  res.render('contact', { canonicalPath: '/contact/' });
+  res.render('contact', {
+    canonicalPath: '/contact/'
+  });
 });
+
 
 app.post('/contact/', express.urlencoded({ extended: true }), (req, res) => {
   const { name, email, message } = req.body;
@@ -107,14 +116,17 @@ app.post('/contact/', express.urlencoded({ extended: true }), (req, res) => {
   res.send('Thank you for contacting us!');
 });
 
+
 app.get('/legal/', (req, res) => {
-  res.render('legal', { canonicalPath: '/legal/' } {
+  res.render('legal', {
+    canonicalPath: '/legal/',
     appName: "Chatwithstrangers",
     supportEmail: "ak786lawa@gmail.com",
     isAuthenticated: req.isAuthenticated ? req.isAuthenticated() : false,
     currentYear: new Date().getFullYear()
   });
 });
+
 
 // Socket.IO logic
 io.on('connection', (socket) => {
