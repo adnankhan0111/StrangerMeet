@@ -73,7 +73,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/chat/', (req, res) => {
-  res.render('chat', { canonicalPath: '/chat/' } { roomId: uuidV4() });
+  res.render('chat', {
+    canonicalPath: '/chat/',
+    roomId: uuidV4()
+  });
 });
 
 app.get('/text-chat/', (req, res) => {
