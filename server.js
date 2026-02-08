@@ -25,6 +25,15 @@ app.get('/sitemap.xml', (req, res) => {
 </urlset>`);
 });
 
+app.use((req, res, next) => {
+  if (req.path === "/") {
+    res.set("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.set("Pragma", "no-cache");
+    res.set("Expires", "0");
+  }
+  next();
+});
+
 
 app.use((req, res, next) => {
   const host = req.headers.host;
