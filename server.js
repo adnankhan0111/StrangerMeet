@@ -8,11 +8,11 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+app.enable("trust proxy");
 
-app.get('/sitemap.xml', (req, res) => {
-  res.status(200);
-  res.setHeader('Content-Type', 'application/xml');
-  res.setHeader('Cache-Control', 'no-store');
+app.get("/sitemap.xml", (req, res) => {
+  res.type("application/xml");
+  res.set("Cache-Control", "no-store");
 
   res.send(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -24,6 +24,8 @@ app.get('/sitemap.xml', (req, res) => {
   <url><loc>https://chatwithstrangers.fun/legal/</loc></url>
 </urlset>`);
 });
+
+
 
 app.use((req, res, next) => {
   if (req.path === "/") {
