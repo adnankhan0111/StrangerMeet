@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chatwithstrangers.fun/sitemap.xml
+Sitemap: https://chatwithstrangers.fun/sitemap-v1.xml
