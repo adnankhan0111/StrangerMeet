@@ -4,21 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ SEO Meta Tags -->
-  <title>Top 10 Best Omegle Alternatives in 2025 (Free & Safe) | Chatwithstrangers</title>
+  <title>Top 10 Best Omegle Alternatives in 2025 (Free &amp; Safe) | Chatwithstrangers</title>
   <meta name="description" content="Looking for the best Omegle alternatives in 2025? Discover 10 free and safe random chat sites to talk with strangers online. No registration required!" />
   <meta name="keywords" content="omegle alternative, omegle alternative free, chat with strangers, random chat sites, talk to strangers online, anonymous chat no registration" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://chatwithstrangers.fun/blog/best-omegle-alternatives/" />
 
-  <!-- ✅ Open Graph (for WhatsApp / Facebook sharing) -->
-  <meta property="og:title" content="Top 10 Best Omegle Alternatives in 2025 (Free & Safe)" />
-  <meta property="og:description" content="Omegle is gone. Here are 10 free, safe alternatives to chat with strangers online in 2025 — no registration needed!" />
-  <meta property="og:url" content="https://chatwithstrangers.fun/blog/best-omegle-alternatives/" />
+  <!-- FIX 1: canonical now uses EJS variable from your route -->
+  <link rel="canonical" href="https://chatwithstrangers.fun<%= canonicalPath %>" />
+
+  <!-- FIX 2: OG URL also uses EJS variable -->
+  <meta property="og:title" content="Top 10 Best Omegle Alternatives in 2025 (Free &amp; Safe)" />
+  <meta property="og:description" content="Omegle is gone. Here are 10 free safe alternatives to chat with strangers online in 2025 no registration needed!" />
+  <meta property="og:url" content="https://chatwithstrangers.fun<%= canonicalPath %>" />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://chatwithstrangers.fun/logo.png" />
 
-  <!-- ✅ Schema Markup for Google (Article + FAQ) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -32,6 +32,7 @@
     "mainEntityOfPage": "https://chatwithstrangers.fun/blog/best-omegle-alternatives/"
   }
   </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,30 +62,48 @@
   }
   </script>
 
-  <!-- Link to your existing stylesheet -->
   <link rel="stylesheet" href="/style.css" />
   <link rel="icon" href="/logo.png" type="image/png" />
 
   <style>
-    /* ===== Blog Page Styles ===== */
-    .blog-hero {
+    /* FIX 3: All class names prefixed with blg- to avoid conflicts with your style.css */
+
+    .blg-nav {
+      background: #1a1a2e;
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .blg-nav img { height: 40px; }
+    .blg-nav ul { list-style: none; display: flex; gap: 20px; flex-wrap: wrap; margin: 0; padding: 0; }
+    .blg-nav ul li a { color: #ccc; text-decoration: none; font-size: 0.95em; }
+    .blg-nav ul li a:hover { color: white; }
+    .blg-nav .blg-start {
+      background: #e74c3c;
+      color: white !important;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .blg-hero {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
       color: white;
       padding: 60px 20px 40px;
       text-align: center;
     }
-    .blog-hero h1 {
+    .blg-hero h1 {
       font-size: 2.1em;
       max-width: 800px;
       margin: 0 auto 14px;
       line-height: 1.35;
+      color: white;
     }
-    .blog-hero .meta {
-      color: #aaa;
-      font-size: 0.88em;
-      margin-bottom: 10px;
-    }
-    .blog-hero .badge-hero {
+    .blg-hero .blg-meta { color: #aaa; font-size: 0.88em; margin-bottom: 10px; }
+    .blg-hero .blg-badge {
       display: inline-block;
       background: #e74c3c;
       color: white;
@@ -95,39 +114,43 @@
       margin-bottom: 16px;
     }
 
-    .blog-container {
+    .blg-container {
       max-width: 860px;
       margin: 0 auto;
       padding: 36px 20px 60px;
       line-height: 1.8;
       font-size: 1.02em;
       color: #222;
+      font-family: Arial, sans-serif;
     }
-
-    .blog-container h2 {
+    .blg-container h2 {
       font-size: 1.5em;
       color: #1a1a2e;
       margin: 40px 0 14px;
       padding-left: 14px;
       border-left: 4px solid #e74c3c;
     }
-    .blog-container h3 {
-      font-size: 1.15em;
-      color: #16213e;
-      margin: 28px 0 10px;
-    }
-    .blog-container p {
-      margin-bottom: 14px;
-    }
-    .blog-container ul, .blog-container ol {
-      padding-left: 22px;
-      margin-bottom: 16px;
-    }
-    .blog-container li {
-      margin-bottom: 7px;
-    }
+    .blg-container h3 { font-size: 1.15em; color: #16213e; margin: 28px 0 10px; }
+    .blg-container p { margin-bottom: 14px; }
+    .blg-container ul, .blg-container ol { padding-left: 22px; margin-bottom: 16px; }
+    .blg-container li { margin-bottom: 7px; }
+    .blg-container a { color: #e74c3c; }
 
-    .intro-box {
+    .blg-toc {
+      background: #f0f4ff;
+      border: 1px solid #c5d0f5;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-size: 0.93em;
+    }
+    .blg-toc h4 { margin-top: 0; color: #1a1a2e; margin-bottom: 10px; }
+    .blg-toc ol { margin: 0; padding-left: 20px; }
+    .blg-toc li { margin-bottom: 5px; }
+    .blg-toc a { color: #3498db; text-decoration: none; }
+    .blg-toc a:hover { text-decoration: underline; }
+
+    .blg-intro {
       background: #fff8e1;
       border: 1px solid #ffc107;
       border-radius: 10px;
@@ -136,7 +159,7 @@
       font-size: 0.96em;
     }
 
-    .site-card {
+    .blg-card {
       background: #f8f9fa;
       border: 1px solid #dee2e6;
       border-radius: 12px;
@@ -144,17 +167,12 @@
       margin: 22px 0;
       transition: box-shadow 0.2s;
     }
-    .site-card:hover {
-      box-shadow: 0 4px 18px rgba(0,0,0,0.10);
-    }
-    .site-card h3 {
-      margin-top: 0;
-      color: #e74c3c;
-      font-size: 1.15em;
-    }
-    .site-card .pros { color: #27ae60; }
-    .site-card .cons { color: #c0392b; }
-    .badge {
+    .blg-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .blg-card h3 { margin-top: 0; color: #e74c3c; font-size: 1.15em; }
+    .blg-card .blg-pros { color: #27ae60; margin-bottom: 5px; }
+    .blg-card .blg-cons { color: #c0392b; }
+
+    .blg-best {
       display: inline-block;
       background: #e74c3c;
       color: white;
@@ -165,28 +183,14 @@
       margin-left: 8px;
       vertical-align: middle;
     }
-    .badge-green { background: #27ae60; }
 
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 28px 0;
-      font-size: 0.93em;
-    }
-    .comparison-table th {
-      background: #1a1a2e;
-      color: white;
-      padding: 12px 14px;
-      text-align: left;
-    }
-    .comparison-table td {
-      padding: 10px 14px;
-      border-bottom: 1px solid #eee;
-    }
-    .comparison-table tr:nth-child(even) { background: #f8f9fa; }
-    .comparison-table tr:first-child td { background: #fff3cd; font-weight: bold; }
+    .blg-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.93em; }
+    .blg-table th { background: #1a1a2e; color: white; padding: 12px 14px; text-align: left; }
+    .blg-table td { padding: 10px 14px; border-bottom: 1px solid #eee; }
+    .blg-table tr:nth-child(even) { background: #f8f9fa; }
+    .blg-table tbody tr:first-child td { background: #fff3cd; font-weight: bold; }
 
-    blockquote {
+    .blg-quote {
       border-left: 4px solid #e74c3c;
       margin: 24px 0;
       padding: 14px 20px;
@@ -196,7 +200,7 @@
       border-radius: 0 8px 8px 0;
     }
 
-    .cta-box {
+    .blg-cta {
       background: linear-gradient(135deg, #1a1a2e, #16213e);
       color: white;
       padding: 36px 28px;
@@ -204,15 +208,9 @@
       text-align: center;
       margin: 42px 0;
     }
-    .cta-box h2 {
-      color: white;
-      border: none;
-      padding: 0;
-      margin-top: 0;
-      font-size: 1.5em;
-    }
-    .cta-box p { color: #ccc; }
-    .cta-box a.cta-btn {
+    .blg-cta h2 { color: white; border: none; padding: 0; margin-top: 0; font-size: 1.5em; }
+    .blg-cta p { color: #ccc; }
+    .blg-cta a {
       display: inline-block;
       background: #e74c3c;
       color: white;
@@ -224,79 +222,60 @@
       margin-top: 10px;
       transition: background 0.2s;
     }
-    .cta-box a.cta-btn:hover { background: #c0392b; }
+    .blg-cta a:hover { background: #c0392b; }
 
-    .faq-item {
-      border: 1px solid #dee2e6;
-      border-radius: 10px;
-      padding: 16px 22px;
-      margin: 14px 0;
-    }
-    .faq-item strong { color: #1a1a2e; display: block; margin-bottom: 6px; }
+    .blg-faq { border: 1px solid #dee2e6; border-radius: 10px; padding: 16px 22px; margin: 14px 0; }
+    .blg-faq strong { color: #1a1a2e; display: block; margin-bottom: 6px; }
 
-    .safety-box {
-      background: #e8f5e9;
-      border: 1px solid #27ae60;
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin: 28px 0;
-    }
-    .safety-box h3 { color: #1b5e20; margin-top: 0; }
+    .blg-safety { background: #e8f5e9; border: 1px solid #27ae60; border-radius: 10px; padding: 20px 24px; margin: 28px 0; }
+    .blg-safety h3 { color: #1b5e20; margin-top: 0; }
 
-    .toc {
-      background: #f0f4ff;
-      border: 1px solid #c5d0f5;
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin: 28px 0;
-      font-size: 0.93em;
-    }
-    .toc h4 { margin-top: 0; color: #1a1a2e; }
-    .toc ol { margin: 0; padding-left: 20px; }
-    .toc li { margin-bottom: 5px; }
-    .toc a { color: #3498db; text-decoration: none; }
-    .toc a:hover { text-decoration: underline; }
+    .blg-footer { background: #1a1a2e; color: #aaa; padding: 30px 20px; font-size: 0.9em; }
+    .blg-footer-wrap { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+    .blg-footer-wrap h4 { color: white; margin-bottom: 10px; margin-top: 0; }
+    .blg-footer-wrap ul { list-style: none; padding: 0; margin: 0; }
+    .blg-footer-wrap ul li { margin-bottom: 6px; }
+    .blg-footer-wrap a { color: #aaa; text-decoration: none; }
+    .blg-footer-wrap a:hover { color: white; }
+    .blg-footer p { text-align: center; margin: 0; }
 
     @media (max-width: 600px) {
-      .blog-hero h1 { font-size: 1.4em; }
-      .comparison-table { font-size: 0.78em; }
-      .comparison-table th, .comparison-table td { padding: 8px 8px; }
+      .blg-hero h1 { font-size: 1.35em; }
+      .blg-table { font-size: 0.78em; }
+      .blg-table th, .blg-table td { padding: 8px; }
+      .blg-nav { padding: 12px 16px; }
+      .blg-nav ul { gap: 10px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAVBAR (matches your site) ===== -->
-  <header>
-    <nav>
-      <a href="/">
-        <img src="/logo.png" alt="Chat With Strangers - Free Random Chat Website" height="40" />
-      </a>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/contact/">Contact Us</a></li>
-        <li><a href="/legal/">Term & Policy</a></li>
-        <li><a href="/chat/" class="btn-start">Start Chatting</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- NAVBAR -->
+  <div class="blg-nav">
+    <a href="/"><img src="/logo.png" alt="Chat With Strangers - Free Random Chat Website" /></a>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/contact/">Contact Us</a></li>
+      <li><a href="/legal/">Term &amp; Policy</a></li>
+      <li><a href="/chat/" class="blg-start">Start Chatting</a></li>
+    </ul>
+  </div>
 
-  <!-- ===== BLOG HERO ===== -->
-  <section class="blog-hero">
-    <div class="badge-hero">📝 Blog · Random Chat Guide</div>
-    <h1>Top 10 Best Omegle Alternatives in 2025<br>(Free &amp; Safe Random Chat Sites)</h1>
-    <p class="meta">📅 April 2025 &nbsp;·&nbsp; ✍️ Chatwithstrangers.fun &nbsp;·&nbsp; ⏱️ 8 min read</p>
+  <!-- HERO -->
+  <section class="blg-hero">
+    <div class="blg-badge">📝 Blog &nbsp;·&nbsp; Random Chat Guide</div>
+    <h1>Top 10 Best Omegle Alternatives in 2025<br />(Free &amp; Safe Random Chat Sites)</h1>
+    <p class="blg-meta">📅 April 2025 &nbsp;·&nbsp; ✍️ Chatwithstrangers.fun &nbsp;·&nbsp; ⏱️ 8 min read</p>
   </section>
 
-  <!-- ===== BLOG CONTENT ===== -->
-  <main class="blog-container">
+  <!-- CONTENT -->
+  <main class="blg-container">
 
-    <!-- Table of Contents -->
-    <div class="toc">
+    <div class="blg-toc">
       <h4>📋 Table of Contents</h4>
       <ol>
-        <li><a href="#why-omegle-shut-down">Why Did Omegle Shut Down?</a></li>
+        <li><a href="#why-omegle">Why Did Omegle Shut Down?</a></li>
         <li><a href="#what-to-look-for">What to Look for in an Alternative</a></li>
         <li><a href="#top-10">Top 10 Omegle Alternatives in 2025</a></li>
         <li><a href="#comparison">Quick Comparison Table</a></li>
@@ -305,313 +284,181 @@
       </ol>
     </div>
 
-    <div class="intro-box">
+    <div class="blg-intro">
       <strong>🔑 Key Takeaway:</strong> Omegle shut down in November 2023. Millions of users are now searching for safe, free alternatives to chat with strangers online. This guide covers the <strong>10 best Omegle replacements</strong> that actually work in 2025 — no registration needed!
     </div>
 
-    <p>
-      If you've been searching for a site like Omegle to <strong>chat with strangers online for free</strong>, you're not alone.
-      Since Omegle closed, the demand for random chat platforms has exploded. Whether you want to make new friends,
-      practice a new language, or simply have fun talking to people from around the world — there are plenty of great options.
-    </p>
-    <p>
-      In this article, we've tested and reviewed the <strong>top 10 Omegle alternatives in 2025</strong>
-      so you can find the best one for you.
-    </p>
+    <p>If you have been searching for a site like Omegle to <strong>chat with strangers online for free</strong>, you are not alone. Since Omegle closed, the demand for random chat platforms has exploded. Whether you want to make new friends, practice a new language, or simply have fun talking to people from around the world — there are plenty of great options.</p>
+    <p>In this article, we have tested and reviewed the <strong>top 10 Omegle alternatives in 2025</strong> so you can find the best one for you.</p>
 
-    <!-- Section 1 -->
-    <h2 id="why-omegle-shut-down">Why Did Omegle Shut Down?</h2>
-    <p>
-      Omegle officially shut down in <strong>November 2023</strong> after 14 years of operation. The founder cited increasing
-      misuse of the platform and mounting legal pressure as the main reasons. Omegle was once visited by over
-      <strong>70 million users per month</strong>, leaving a massive gap in the random chat market.
-    </p>
-    <blockquote>
-      "The good news is — there are now better, safer, and more fun alternatives to Omegle available in 2025."
-    </blockquote>
+    <h2 id="why-omegle">Why Did Omegle Shut Down?</h2>
+    <p>Omegle officially shut down in <strong>November 2023</strong> after 14 years of operation. The founder cited increasing misuse of the platform and mounting legal pressure as the main reasons. Omegle was once visited by over <strong>70 million users per month</strong>, leaving a massive gap in the random chat market.</p>
+    <div class="blg-quote">The good news is — there are now better, safer, and more fun alternatives to Omegle available in 2025.</div>
 
-    <!-- Section 2 -->
     <h2 id="what-to-look-for">What to Look for in an Omegle Alternative</h2>
-    <p>Before diving into our list, here's what makes a great random chat platform:</p>
     <ul>
       <li><strong>No registration required</strong> — Jump in without signing up</li>
       <li><strong>Free to use</strong> — No hidden fees or subscriptions</li>
-      <li><strong>Safety features</strong> — Report/block buttons and moderation</li>
+      <li><strong>Safety features</strong> — Report and block buttons with moderation</li>
       <li><strong>Fast matching</strong> — Find a new person to chat with instantly</li>
-      <li><strong>Text &amp; video options</strong> — Flexibility to choose how you chat</li>
+      <li><strong>Text and video options</strong> — Flexibility to choose how you chat</li>
     </ul>
 
-    <!-- Section 3 -->
     <h2 id="top-10">Top 10 Omegle Alternatives in 2025</h2>
 
-    <!-- Site 1 -->
-    <div class="site-card">
-      <h3>#1. Chatwithstrangers.fun <span class="badge">🏆 Best Overall</span></h3>
-      <p>
-        <strong>Chatwithstrangers.fun</strong> is the best Omegle alternative available in 2025. It offers instant
-        anonymous chatting with no registration, a clean interface, and strong safety features. Whether you want to
-        text chat or video chat with strangers, this platform has you covered — completely free.
-      </p>
-      <p class="pros">✅ No sign-up needed &nbsp;·&nbsp; 100% free &nbsp;·&nbsp; Fast matching &nbsp;·&nbsp; Safe &amp; moderated &nbsp;·&nbsp; Works on mobile &amp; desktop</p>
-      <p class="cons">❌ No major cons</p>
-      <p><strong>🔗 Visit:</strong> <a href="https://chatwithstrangers.fun" target="_blank" rel="noopener">chatwithstrangers.fun</a></p>
+    <div class="blg-card">
+      <h3>#1. Chatwithstrangers.fun <span class="blg-best">🏆 Best Overall</span></h3>
+      <p><strong>Chatwithstrangers.fun</strong> is the best Omegle alternative available in 2025. It offers instant anonymous chatting with no registration, a clean interface, and strong safety features. Whether you want to text chat or video chat with strangers, this platform has you covered — completely free.</p>
+      <p class="blg-pros">✅ No sign-up needed &nbsp;·&nbsp; 100% free &nbsp;·&nbsp; Fast matching &nbsp;·&nbsp; Safe and moderated &nbsp;·&nbsp; Works on mobile and desktop</p>
+      <p class="blg-cons">❌ No major cons</p>
+      <p><strong>Visit:</strong> <a href="https://chatwithstrangers.fun" target="_blank" rel="noopener">chatwithstrangers.fun</a></p>
     </div>
 
-    <!-- Site 2 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#2. Emerald Chat</h3>
-      <p>
-        Emerald Chat matches users based on shared interests, making conversations more relevant. It has a modern design
-        and includes group chat options alongside the standard one-on-one format.
-      </p>
-      <p class="pros">✅ Interest-based matching &nbsp;·&nbsp; Group chats &nbsp;·&nbsp; Clean modern UI</p>
-      <p class="cons">❌ Requires account for full features &nbsp;·&nbsp; Some ads shown</p>
+      <p>Emerald Chat matches users based on shared interests, making conversations more relevant. It has a modern design and includes group chat options alongside the standard one-on-one format.</p>
+      <p class="blg-pros">✅ Interest-based matching &nbsp;·&nbsp; Group chats &nbsp;·&nbsp; Clean modern UI</p>
+      <p class="blg-cons">❌ Requires account for full features &nbsp;·&nbsp; Some ads shown</p>
     </div>
 
-    <!-- Site 3 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#3. Chatroulette</h3>
-      <p>
-        One of the original random video chat platforms, Chatroulette connects you with random people via webcam
-        and has improved its moderation over the years. Still active and popular in 2025.
-      </p>
-      <p class="pros">✅ Well-known brand &nbsp;·&nbsp; Video chat focused &nbsp;·&nbsp; Large user base</p>
-      <p class="cons">❌ Less safety filtering than newer platforms</p>
+      <p>One of the original random video chat platforms, Chatroulette connects you with random people via webcam and has improved its moderation over the years. Still active and popular in 2025.</p>
+      <p class="blg-pros">✅ Well-known brand &nbsp;·&nbsp; Video chat focused &nbsp;·&nbsp; Large user base</p>
+      <p class="blg-cons">❌ Less safety filtering than newer platforms</p>
     </div>
 
-    <!-- Site 4 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#4. Chatspin</h3>
-      <p>
-        Chatspin allows users to filter by country and gender, making it easier to find specific connections.
-        It has a mobile app and a large global user base.
-      </p>
-      <p class="pros">✅ Country &amp; gender filters &nbsp;·&nbsp; Mobile app &nbsp;·&nbsp; Large user base</p>
-      <p class="cons">❌ Some premium features require payment</p>
+      <p>Chatspin allows users to filter by country and gender, making it easier to find specific connections. It has a mobile app and a large global user base.</p>
+      <p class="blg-pros">✅ Country and gender filters &nbsp;·&nbsp; Mobile app &nbsp;·&nbsp; Large user base</p>
+      <p class="blg-cons">❌ Some premium features require payment</p>
     </div>
 
-    <!-- Site 5 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#5. Bazoocam</h3>
-      <p>
-        Bazoocam is popular in Europe and offers random video chat with built-in games you can play with strangers —
-        a fun unique feature that breaks the ice quickly.
-      </p>
-      <p class="pros">✅ Built-in games &nbsp;·&nbsp; Video chat &nbsp;·&nbsp; No registration needed</p>
-      <p class="cons">❌ Primarily European user base &nbsp;·&nbsp; Smaller user count</p>
+      <p>Bazoocam is popular in Europe and offers random video chat with built-in games you can play with strangers — a fun unique feature that breaks the ice quickly.</p>
+      <p class="blg-pros">✅ Built-in games &nbsp;·&nbsp; Video chat &nbsp;·&nbsp; No registration needed</p>
+      <p class="blg-cons">❌ Primarily European user base &nbsp;·&nbsp; Smaller user count</p>
     </div>
 
-    <!-- Site 6 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#6. CooMeet</h3>
-      <p>
-        CooMeet focuses on connecting users in a gender-filtered random chat experience with high-quality video.
-        Verified profiles add an extra layer of trust.
-      </p>
-      <p class="pros">✅ Gender filter &nbsp;·&nbsp; HD video quality &nbsp;·&nbsp; Verified profiles</p>
-      <p class="cons">❌ Premium subscription required after free trial</p>
+      <p>CooMeet focuses on connecting users in a gender-filtered random chat experience with high-quality video. Verified profiles add an extra layer of trust.</p>
+      <p class="blg-pros">✅ Gender filter &nbsp;·&nbsp; HD video quality &nbsp;·&nbsp; Verified profiles</p>
+      <p class="blg-cons">❌ Premium subscription required after free trial</p>
     </div>
 
-    <!-- Site 7 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#7. Shagle</h3>
-      <p>
-        Available in over 70 countries and supporting multiple languages, Shagle is a great choice for language
-        learners or those wanting international connections.
-      </p>
-      <p class="pros">✅ 70+ countries &nbsp;·&nbsp; Multi-language &nbsp;·&nbsp; Gender &amp; location filters</p>
-      <p class="cons">❌ Some features locked behind premium</p>
+      <p>Available in over 70 countries and supporting multiple languages, Shagle is a great choice for language learners or those wanting international connections.</p>
+      <p class="blg-pros">✅ 70+ countries &nbsp;·&nbsp; Multi-language &nbsp;·&nbsp; Gender and location filters</p>
+      <p class="blg-cons">❌ Some features locked behind premium</p>
     </div>
 
-    <!-- Site 8 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#8. Tinychat</h3>
-      <p>
-        Tinychat offers group video chat rooms organized by topic or interest. It's ideal for community-style
-        conversations rather than traditional one-on-one random chat.
-      </p>
-      <p class="pros">✅ Topic-based group rooms &nbsp;·&nbsp; Community feel &nbsp;·&nbsp; Free to join</p>
-      <p class="cons">❌ Less anonymous than other options</p>
+      <p>Tinychat offers group video chat rooms organized by topic or interest. It is ideal for community-style conversations rather than traditional one-on-one random chat.</p>
+      <p class="blg-pros">✅ Topic-based group rooms &nbsp;·&nbsp; Community feel &nbsp;·&nbsp; Free to join</p>
+      <p class="blg-cons">❌ Less anonymous than other options</p>
     </div>
 
-    <!-- Site 9 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#9. iMeetzu</h3>
-      <p>
-        iMeetzu combines random chat with social networking features like friend lists and profiles — good for users
-        who want more than just a quick anonymous conversation.
-      </p>
-      <p class="pros">✅ Social features &nbsp;·&nbsp; Friend lists &nbsp;·&nbsp; Random + group chat</p>
-      <p class="cons">❌ Older interface &nbsp;·&nbsp; Smaller user base</p>
+      <p>iMeetzu combines random chat with social networking features like friend lists and profiles — good for users who want more than just a quick anonymous conversation.</p>
+      <p class="blg-pros">✅ Social features &nbsp;·&nbsp; Friend lists &nbsp;·&nbsp; Random and group chat</p>
+      <p class="blg-cons">❌ Older interface &nbsp;·&nbsp; Smaller user base</p>
     </div>
 
-    <!-- Site 10 -->
-    <div class="site-card">
+    <div class="blg-card">
       <h3>#10. Camsurf</h3>
-      <p>
-        Camsurf is one of the most family-friendly random video chat platforms, with strict moderation and a
-        mobile app available for both iOS and Android.
-      </p>
-      <p class="pros">✅ Family-friendly &nbsp;·&nbsp; Strict moderation &nbsp;·&nbsp; Mobile app available</p>
-      <p class="cons">❌ Stricter rules may limit some interactions</p>
+      <p>Camsurf is one of the most family-friendly random video chat platforms, with strict moderation and a mobile app available for both iOS and Android.</p>
+      <p class="blg-pros">✅ Family-friendly &nbsp;·&nbsp; Strict moderation &nbsp;·&nbsp; Mobile app available</p>
+      <p class="blg-cons">❌ Stricter rules may limit some interactions</p>
     </div>
 
-    <!-- Section 4 - Comparison Table -->
     <h2 id="comparison">Quick Comparison Table</h2>
     <div style="overflow-x:auto;">
-      <table class="comparison-table">
+      <table class="blg-table">
         <thead>
           <tr>
-            <th>Platform</th>
-            <th>Free?</th>
-            <th>No Sign-up?</th>
-            <th>Video Chat?</th>
-            <th>Safety Rating</th>
+            <th>Platform</th><th>Free?</th><th>No Sign-up?</th><th>Video Chat?</th><th>Safety Rating</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>Chatwithstrangers.fun</strong></td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>Emerald Chat</td>
-            <td>✅ Mostly</td>
-            <td>⚠️ Partial</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>Chatroulette</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>Chatspin</td>
-            <td>⚠️ Mostly</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>Bazoocam</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>CooMeet</td>
-            <td>❌ Paid</td>
-            <td>⚠️ Partial</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>Shagle</td>
-            <td>⚠️ Mostly</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>Tinychat</td>
-            <td>✅ Yes</td>
-            <td>⚠️ Partial</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>iMeetzu</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐</td>
-          </tr>
-          <tr>
-            <td>Camsurf</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>✅ Yes</td>
-            <td>⭐⭐⭐⭐⭐</td>
-          </tr>
+          <tr><td><strong>Chatwithstrangers.fun</strong></td><td>✅ Yes</td><td>✅ Yes</td><td>✅ Yes</td><td>⭐⭐⭐⭐⭐</td></tr>
+          <tr><td>Emerald Chat</td><td>✅ Mostly</td><td>⚠️ Partial</td><td>✅ Yes</td><td>⭐⭐⭐⭐</td></tr>
+          <tr><td>Chatroulette</td><td>✅ Yes</td><td>✅ Yes</td><td>✅ Yes</td><td>⭐⭐⭐</td></tr>
+          <tr><td>Chatspin</td><td>⚠️ Mostly</td><td>✅ Yes</td><td>✅ Yes</td><td>⭐⭐⭐⭐</td></tr>
+          <tr><td>Bazoocam</td><td>✅ Yes</td><td>✅ Yes</td><td>✅ Yes</td><td>⭐⭐⭐</td></tr>
+          <tr><td>CooMeet</td><td>❌ Paid</td><td>⚠️ Partial</td><td>✅ Yes</td><td>⭐⭐⭐⭐</td></tr>
+          <tr><td>Shagle</td><td>⚠️ Mostly</td><td>✅ Yes</td><td>✅ Yes</td><td>⭐⭐⭐⭐</td></tr>
+          <tr><td>Tinychat</td><td>✅ Yes</td><td>⚠️ Partial</td><td>✅ Yes</td><td>⭐⭐⭐</td></tr>
+          <tr><td>iMeetzu</td><td>✅ Yes</td><td>✅ Yes</td><td>✅ Yes</td><td>⭐⭐⭐</td></tr>
+          <tr><td>Camsurf</td><td>✅ Yes</td><td>✅ Yes</td><td>✅ Yes</td><td>⭐⭐⭐⭐⭐</td></tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Section 5 - Safety Tips -->
     <h2 id="safety-tips">Tips for Staying Safe While Chatting With Strangers</h2>
-    <div class="safety-box">
+    <div class="blg-safety">
       <h3>🔒 Stay Safe Online</h3>
       <ul>
-        <li>🔒 <strong>Never share personal information</strong> — no full name, address, or phone number</li>
-        <li>🚫 <strong>Use the report/block button</strong> immediately if someone makes you uncomfortable</li>
-        <li>📵 <strong>Keep your camera off</strong> until you feel comfortable with the other person</li>
-        <li>🌐 <strong>Consider using a VPN</strong> for extra privacy while chatting anonymously</li>
-        <li>👶 <strong>Parental supervision recommended</strong> for users under 18</li>
-        <li>⚠️ <strong>Never click suspicious links</strong> shared by strangers in chat</li>
+        <li><strong>Never share personal information</strong> — no full name, address, or phone number</li>
+        <li><strong>Use the report and block button</strong> immediately if someone makes you uncomfortable</li>
+        <li><strong>Keep your camera off</strong> until you feel comfortable with the other person</li>
+        <li><strong>Consider using a VPN</strong> for extra privacy while chatting anonymously</li>
+        <li><strong>Parental supervision recommended</strong> for users under 18</li>
+        <li><strong>Never click suspicious links</strong> shared by strangers in chat</li>
       </ul>
     </div>
 
-    <!-- CTA Box -->
-    <div class="cta-box">
+    <div class="blg-cta">
       <h2>Ready to Chat with Strangers for Free? 🚀</h2>
       <p>No registration. No download. Instant random chat with people from all over the world.</p>
-      <a href="/chat/" class="cta-btn">👉 Start Chatting Now — It's Free!</a>
+      <a href="/chat/">👉 Start Chatting Now — It's Free!</a>
     </div>
 
-    <!-- Section 6 - FAQ -->
     <h2 id="faq">Frequently Asked Questions</h2>
 
-    <div class="faq-item">
+    <div class="blg-faq">
       <strong>❓ What is the best Omegle alternative in 2025?</strong>
-      <p>Chatwithstrangers.fun is the best Omegle alternative in 2025. It's completely free, requires no registration, and provides a safe, moderated environment to chat with strangers online.</p>
+      <p>Chatwithstrangers.fun is the best Omegle alternative in 2025. It is completely free, requires no registration, and provides a safe moderated environment to chat with strangers online.</p>
     </div>
-
-    <div class="faq-item">
+    <div class="blg-faq">
       <strong>❓ Can I chat with strangers for free without registration?</strong>
-      <p>Yes! Chatwithstrangers.fun, Chatroulette, and Camsurf all allow you to start chatting with strangers instantly without creating an account or signing up.</p>
+      <p>Yes! Chatwithstrangers.fun allows you to start chatting with strangers instantly without creating an account or signing up.</p>
     </div>
-
-    <div class="faq-item">
+    <div class="blg-faq">
       <strong>❓ What happened to Omegle?</strong>
       <p>Omegle shut down permanently in November 2023 after 14 years. The founder cited legal issues and increasing difficulty moderating harmful content as the reasons for closing.</p>
     </div>
-
-    <div class="faq-item">
+    <div class="blg-faq">
       <strong>❓ Is it safe to chat with strangers online?</strong>
       <p>Yes, it can be safe as long as you follow basic safety rules — never share personal information, use platforms with moderation features, and trust your instincts. Chatwithstrangers.fun has built-in AI moderation and a reporting system.</p>
     </div>
-
-    <div class="faq-item">
+    <div class="blg-faq">
       <strong>❓ Are there anonymous chat apps like Omegle?</strong>
       <p>Yes! Chatwithstrangers.fun, Emerald Chat, and Shagle all offer anonymous chat experiences where you can talk to strangers without revealing your identity.</p>
     </div>
-
-    <div class="faq-item">
+    <div class="blg-faq">
       <strong>❓ Is Chatwithstrangers.fun free to use?</strong>
-      <p>Yes, 100% free. There are no hidden charges, no subscription, and no registration required. Just click and start chatting with strangers instantly.</p>
+      <p>Yes, 100% free. There are no hidden charges, no subscription, and no registration required. Just click and start chatting instantly.</p>
     </div>
 
-    <!-- Related Posts -->
     <h2>📚 Related Blog Posts</h2>
     <ul>
-      <li><a href="/blog/chat-with-strangers-safely">How to Chat With Strangers Safely Online (Complete Guide)</a></li>
-      <li><a href="/blog/random-chat-no-registration">Random Chat Sites With No Registration Required (2025)</a></li>
-      <li><a href="/blog/meet-new-people-online">Meet New People Online for Free — 8 Best Ways</a></li>
-      <li><a href="/blog/anonymous-chat-apps">Best Anonymous Chat Apps in 2025 (Reviewed)</a></li>
+      <li><a href="/blog/chat-with-strangers-safely/">How to Chat With Strangers Safely Online (Complete Guide)</a></li>
+      <li><a href="/blog/random-chat-no-registration/">Random Chat Sites With No Registration Required (2025)</a></li>
+      <li><a href="/blog/meet-new-people-online/">Meet New People Online for Free — 8 Best Ways</a></li>
+      <li><a href="/blog/anonymous-chat-apps/">Best Anonymous Chat Apps in 2025 (Reviewed)</a></li>
     </ul>
 
   </main>
 
-  <!-- ===== FOOTER (matches your site) ===== -->
-  <footer>
-    <div class="footer-links">
+  <!-- FOOTER -->
+  <div class="blg-footer">
+    <div class="blg-footer-wrap">
       <div>
         <h4>Quick Links</h4>
         <ul>
@@ -634,7 +481,7 @@
       </div>
     </div>
     <p>&copy; 2025 <strong>Chatwithstrangers.fun</strong> – The Best Random Video Chat Platform</p>
-  </footer>
+  </div>
 
 </body>
 </html>
