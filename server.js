@@ -128,7 +128,7 @@ app.post('/contact/', express.urlencoded({ extended: true }), (req, res) => {
 });
 
 app.get('/blog/best-omegle-alternatives/', (req, res) => {
-  res.render('blog/best-omegle-alternative', {
+  res.render('blog/best-omegle-alternatives', {
     canonicalPath: '/blog/best-omegle-alternatives/'
   });
 });
