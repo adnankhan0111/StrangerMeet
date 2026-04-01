@@ -63,202 +63,214 @@
   <link rel="icon" href="/logo.png" type="image/png" />
 
   <style>
-    /* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+   /* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* BODY */
-body {
+body{
   font-family: Arial, sans-serif;
-  line-height: 1.7;
+  line-height:1.7;
+  color:#222;
 }
 
 /* NAVBAR */
-.blg-nav {
-  background: #1a1a2e;
-  padding: 14px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.blg-nav{
+  background:#1a1a2e;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  position:sticky;
+  top:0;
+  z-index:999;
 }
 
-.blg-nav img {
-  height: 38px;
+.blg-nav img{height:36px;}
+
+.blg-menu{
+  display:flex;
+  gap:18px;
 }
 
-.blg-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
+.blg-menu a{
+  color:#ccc;
+  text-decoration:none;
+  font-size:14px;
 }
 
-.blg-nav ul li a {
-  color: #ccc;
-  text-decoration: none;
-  font-size: 0.9rem;
+.blg-menu a:hover{color:#fff;}
+
+.blg-start{
+  background:#e74c3c;
+  padding:8px 16px;
+  border-radius:20px;
+  color:#fff !important;
 }
 
-.blg-nav ul li a:hover {
-  color: #fff;
-}
-
-.blg-start {
-  background: #e74c3c;
-  padding: 8px 16px;
-  border-radius: 20px;
-  color: white !important;
-  font-weight: bold;
+/* MOBILE MENU */
+.menu-toggle{
+  display:none;
+  font-size:24px;
+  color:white;
+  cursor:pointer;
 }
 
 /* HERO */
-.blg-hero {
-  padding: 60px 20px;
-  text-align: center;
-  color: white;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+.blg-hero{
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  color:white;
+  text-align:center;
+  padding:60px 20px;
 }
 
-.blg-hero h1 {
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  max-width: 800px;
-  margin: auto;
+.blg-hero h1{
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  max-width:800px;
+  margin:auto;
 }
 
-.blg-meta {
-  font-size: 0.85rem;
-  color: #bbb;
+.blg-meta{
+  font-size:0.85rem;
+  color:#bbb;
+  margin-top:10px;
 }
 
 /* CONTAINER */
-.blg-container {
-  max-width: 860px;
-  margin: auto;
-  padding: 30px 16px;
+.blg-container{
+  max-width:900px;
+  margin:auto;
+  padding:30px 16px;
 }
 
 /* HEADINGS */
-.blg-container h2 {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  margin: 30px 0 12px;
-  border-left: 4px solid #e74c3c;
-  padding-left: 10px;
+h2{
+  margin:30px 0 12px;
+  border-left:4px solid #e74c3c;
+  padding-left:10px;
+  font-size:clamp(1.2rem,3vw,1.5rem);
 }
 
-.blg-container h3 {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+h3{
+  margin-top:15px;
 }
 
-/* CARDS */
-.blg-card {
-  padding: 18px;
-  border-radius: 10px;
+/* CARD */
+.blg-card{
+  background:#f8f9fa;
+  padding:20px;
+  border-radius:10px;
+  margin:20px 0;
+  transition:.3s;
 }
 
-/* TABLE RESPONSIVE */
-.blg-table {
-  width: 100%;
-  font-size: 0.85rem;
+.blg-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
 }
 
-.blg-table th,
-.blg-table td {
-  padding: 10px;
+/* TABLE */
+.table-wrap{
+  overflow-x:auto;
 }
 
-/* IMPORTANT: MOBILE TABLE SCROLL */
-@media (max-width: 768px) {
-  .blg-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+
+th{
+  background:#1a1a2e;
+  color:white;
+  padding:10px;
+}
+
+td{
+  padding:10px;
+  border-bottom:1px solid #eee;
 }
 
 /* CTA */
-.blg-cta {
-  padding: 25px 16px;
+.blg-cta{
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  color:white;
+  text-align:center;
+  padding:30px 20px;
+  border-radius:10px;
+  margin:40px 0;
 }
 
-.blg-cta a {
-  padding: 12px 20px;
-  font-size: 1rem;
+.blg-cta a{
+  display:inline-block;
+  margin-top:15px;
+  background:#e74c3c;
+  padding:12px 24px;
+  border-radius:25px;
+  color:white;
+  text-decoration:none;
 }
 
 /* FOOTER */
-.blg-footer-wrap {
-  flex-direction: column;
-  text-align: center;
-  gap: 20px;
+.blg-footer{
+  background:#1a1a2e;
+  color:#aaa;
+  text-align:center;
+  padding:20px;
 }
 
-/* 🔥 MOBILE OPTIMIZATION */
-@media (max-width: 600px) {
+/* MOBILE */
+@media(max-width:768px){
 
-  .blg-nav {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  .menu-toggle{
+    display:block;
   }
 
-  .blg-nav ul {
-    width: 100%;
-    justify-content: space-between;
+  .blg-menu{
+    display:none;
+    flex-direction:column;
+    width:100%;
+    margin-top:10px;
   }
 
-  .blg-hero {
-    padding: 40px 15px;
+  .blg-menu.active{
+    display:flex;
   }
 
-  .blg-container {
-    padding: 20px 12px;
+  .blg-nav{
+    flex-direction:column;
+    align-items:flex-start;
   }
 
-  .blg-card {
-    padding: 16px;
+  .blg-hero{
+    padding:40px 15px;
   }
 
-  .blg-cta h2 {
-    font-size: 1.2rem;
-  }
-
-  .blg-cta p {
-    font-size: 0.9rem;
-  }
-}
-
-/* 🔥 TABLET OPTIMIZATION */
-@media (min-width: 601px) and (max-width: 1024px) {
-  .blg-container {
-    padding: 30px 20px;
+  .blg-container{
+    padding:20px 12px;
   }
 }
 
-/* 🔥 LARGE SCREEN IMPROVEMENT */
-@media (min-width: 1400px) {
-  .blg-container {
-    max-width: 1000px;
-  }
-}
   </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
-  <div class="blg-nav">
-    <a href="/"><img src="/logo.png" alt="Chat With Strangers - Free Random Chat Website" /></a>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/about/">About</a></li>
-      <li><a href="/contact/">Contact Us</a></li>
-      <li><a href="/legal/">Term &amp; Policy</a></li>
-      <li><a href="/chat/" class="blg-start">Start Chatting</a></li>
-    </ul>
+<div class="blg-nav">
+  <img src="/logo.png">
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <div class="blg-menu" id="menu">
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/contact/">Contact</a>
+    <a href="/legal/">Legal</a>
+    <a href="/chat/" class="blg-start">Start Chat</a>
   </div>
+</div>
 
   <!-- HERO -->
   <section class="blg-hero">
@@ -538,6 +550,10 @@ body {
     </div>
     <p>&copy; 2026 <strong>Chatwithstrangers.fun</strong> – The Best Random Video Chat Platform</p>
   </div>
-
+<script>
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("active");
+}
+</script>
 </body>
 </html>
