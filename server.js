@@ -133,6 +133,12 @@ app.get('/blog/best-omegle-alternatives/', (req, res) => {
   });
 });
 
+app.get('/blog/best-chat-sites-2026/', (req, res) => {
+  res.render('blog/best-chat-sites-2026', {
+    canonicalPath: '/blog/best-chat-sites-2026/'
+  });
+});
+
 app.get('/legal/', (req, res) => {
   res.render('legal', {
     canonicalPath: '/legal/',
