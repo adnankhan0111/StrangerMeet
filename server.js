@@ -139,6 +139,12 @@ app.get('/blog/best-chat-sites-2026/', (req, res) => {
   });
 });
 
+app.get('/blog/chat-with-strangers-safely/', (req, res) => {
+  res.render('blog/chat-with-strangers-safely', {
+    canonicalPath: '/blog/chat-with-strangers-safely/'
+  });
+});
+
 app.get('/legal/', (req, res) => {
   res.render('legal', {
     canonicalPath: '/legal/',
