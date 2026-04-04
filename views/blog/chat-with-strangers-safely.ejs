@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="last-modified" content="2026-01-04">
+  <meta name="last-modified" content="2026-04-04">
   <title>How to Chat With Strangers Safely Online (Complete Guide 2026) | Chatwithstrangers</title>
   <meta name="description" content="Learn how to chat with strangers safely online in 2026. Complete guide covering safety tips, what to avoid, and the best safe random chat platforms. Free & no registration!" />
   <meta name="keywords" content="how to chat with strangers safely, chat with strangers safely online, safe random chat, anonymous chat safety tips, online chat safety 2026" />
@@ -16,6 +16,7 @@
   <meta property="og:image" content="https://chatwithstrangers.fun/logo.png" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%233b82f6'/%3E%3Ctext x='50' y='70' font-size='48' text-anchor='middle' fill='white' font-weight='bold'%3E🛡️%3C/text%3E%3C/svg%3E" />
   
+  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -25,7 +26,7 @@
     "author": { "@type": "Organization", "name": "Chatwithstrangers" },
     "publisher": { "@type": "Organization", "name": "Chatwithstrangers", "url": "https://chatwithstrangers.fun/" },
     "datePublished": "2026-01-01",
-    "dateModified": "2026-04-01",
+    "dateModified": "2026-04-04",
     "mainEntityOfPage": "https://chatwithstrangers.fun/blog/chat-with-strangers-safely/"
   }
   </script>
@@ -126,14 +127,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 28px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
-    .logo-icon img{
-      width: 80px;
-      height: 54px;
-    }
     .logo-text {
       font-weight: 800;
       font-size: 1.3rem;
@@ -210,9 +207,10 @@
     }
 
     .hero-inner h1 {
-      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      font-size: clamp(2rem, 6vw, 3.6rem);
       line-height: 1.2;
       margin-bottom: 20px;
+      letter-spacing: -0.02em;
     }
 
     .hero-meta {
@@ -241,6 +239,7 @@
       border: 1px solid var(--blg-border);
       box-shadow: var(--blg-shadow);
       padding: 28px;
+      transition: transform 0.1s ease;
     }
 
     .toc-card {
@@ -258,6 +257,16 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+    }
+
+    .toc-card a {
+      text-decoration: none;
+      color: var(--blg-primary-dark);
+      font-weight: 500;
+    }
+
+    .toc-card a:hover {
+      text-decoration: underline;
     }
 
     .intro-box {
@@ -326,7 +335,7 @@
     .safe-table table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 680px;
+      min-width: 560px;
     }
 
     .safe-table th {
@@ -362,6 +371,8 @@
       margin-top: 18px;
       transition: 0.2s;
       box-shadow: 0 8px 20px rgba(59,130,246,0.3);
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-primary:hover {
@@ -376,6 +387,12 @@
       border-radius: 20px;
       padding: 20px 24px;
       margin-bottom: 16px;
+      transition: box-shadow 0.2s;
+    }
+
+    .faq-item strong {
+      font-size: 1.05rem;
+      color: #0f172a;
     }
 
     .footer {
@@ -425,10 +442,10 @@
       font-size: 0.85rem;
     }
 
+    /* Responsive refinements */
     @media (max-width: 800px) {
       .nav-container {
-        flex-direction: column;
-        align-items: stretch;
+        position: relative;
         padding: 12px 20px;
       }
       .menu-toggle {
@@ -442,9 +459,10 @@
         flex-direction: column;
         width: 100%;
         background: #0f172a;
-        padding: 16px;
+        padding: 20px;
         border-radius: 28px;
         margin-top: 10px;
+        gap: 8px;
       }
       .nav-links.active {
         display: flex;
@@ -465,12 +483,37 @@
 
     @media (max-width: 560px) {
       .hero-inner h1 {
-        font-size: 1.9rem;
+        font-size: 1.8rem;
       }
       .btn-primary {
         width: 100%;
         justify-content: center;
       }
+      .rules-list, .safety-list {
+        padding: 16px 20px;
+      }
+      .cta-block {
+        padding: 32px 20px;
+      }
+      .footer-inner {
+        flex-direction: column;
+        gap: 28px;
+      }
+    }
+
+    /* smooth focus & touch */
+    a, button {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .content-body ul, .content-body ol {
+      padding-left: 1.8rem;
+      margin: 1rem 0;
+    }
+
+    img {
+      max-width: 100%;
     }
   </style>
 </head>
@@ -479,7 +522,8 @@
 <div class="blg-nav">
   <div class="nav-container">
     <a href="/" class="logo-area">
-      <div class="logo-icon"><img src="/logo.png" alt="Chatwithstrangers logo" /></div>
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">Chatwithstrangers</div>
     </a>
     <button class="menu-toggle" id="mobileMenuBtn" aria-label="Menu">☰</button>
     <div class="nav-links" id="navLinks">
@@ -497,7 +541,7 @@
     <div class="hero-badge">🔒 SAFETY FIRST · 2026 COMPLETE GUIDE</div>
     <h1>How to Chat With Strangers Safely Online<br>(Complete Guide 2026)</h1>
     <div class="hero-meta">
-      <span>📅 Updated: April 1, 2026</span>
+      <span>📅 Updated: April 4, 2026</span>
       <span>✍️ Chatwithstrangers.fun</span>
       <span>⏱️ 10 min read</span>
     </div>
@@ -505,7 +549,7 @@
 </section>
 
 <div class="main-container">
-  <!-- Table of contents -->
+  <!-- Table of contents with smooth scroll fix -->
   <div class="card toc-card">
     <h3>📋 Table of Contents</h3>
     <ol>
@@ -556,7 +600,7 @@
     <h2 id="red-flags">Red Flags to Watch Out For</h2>
     <div class="danger-card">
       <strong>🚨 Leave Immediately If Someone:</strong>
-      <ul style="margin-top: 12px;">
+      <ul style="margin-top: 12px; margin-left: 20px;">
         <li>Asks for personal details too quickly</li>
         <li>Sends links or asks to download something</li>
         <li>Pressures you to turn on camera</li>
@@ -595,7 +639,7 @@
     </div>
 
     <div class="cta-block">
-      <h2>Chat With Strangers Safely on Chatwithstrangers.fun</h2>
+      <h2 style="border-bottom: none; margin-top: 0;">Chat With Strangers Safely on Chatwithstrangers.fun</h2>
       <p>AI moderated · No registration · Zero personal data required. The safest way to meet new people online.</p>
       <a href="/" class="btn-primary">🔒 Start Safe Chatting — It's Free!</a>
     </div>
@@ -629,6 +673,7 @@
 </footer>
 
 <script>
+  // Mobile menu toggle
   const toggleBtn = document.getElementById('mobileMenuBtn');
   const menuPanel = document.getElementById('navLinks');
   if(toggleBtn) {
@@ -636,17 +681,36 @@
       menuPanel.classList.toggle('active');
     });
   }
+
+  // Smooth scroll for anchor links (robust + offset for sticky header)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
-      if(targetId === "#") return;
+      if (targetId === "#" || targetId === "#/" || targetId === "") return;
       const targetElem = document.querySelector(targetId);
-      if(targetElem) {
+      if (targetElem) {
         e.preventDefault();
-        targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const offsetTop = targetElem.getBoundingClientRect().top + window.scrollY - 80; // adjust for sticky navbar
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        // Optional: close mobile menu after click on link
+        if (menuPanel && menuPanel.classList.contains('active')) {
+          menuPanel.classList.remove('active');
+        }
       }
     });
   });
+
+  // Ensure any broken hash initial load works (just in case)
+  if (window.location.hash) {
+    const id = window.location.hash;
+    const element = document.querySelector(id);
+    if (element) {
+      setTimeout(() => {
+        const offset = element.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+      }, 100);
+    }
+  }
 </script>
 </body>
 </html>
