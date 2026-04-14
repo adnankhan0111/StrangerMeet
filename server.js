@@ -145,6 +145,12 @@ app.get('/blog/chat-with-strangers-safely/', (req, res) => {
   });
 });
 
+app.get('/blog/random-chat-no-registration/', (req, res) => {
+  res.render('blog/random-chat-no-registration', {
+    canonicalPath: '/blog/random-chat-no-registration/'
+  });
+});
+
 app.get('/legal/', (req, res) => {
   res.render('legal', {
     canonicalPath: '/legal/',
