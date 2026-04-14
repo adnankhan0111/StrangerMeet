@@ -151,6 +151,12 @@ app.get('/blog/random-chat-no-registration/', (req, res) => {
   });
 });
 
+app.get('/blog/what-happened-to-omegle/', (req, res) => {
+  res.render('blog/what-happened-to-omegle', {
+    canonicalPath: '/blog/what-happened-to-omegle/'
+  });
+});
+
 app.get('/legal/', (req, res) => {
   res.render('legal', {
     canonicalPath: '/legal/',
