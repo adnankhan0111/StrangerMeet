@@ -157,6 +157,12 @@ app.get('/blog/what-happened-to-omegle/', (req, res) => {
   });
 });
 
+app.get('/blog/meet-new-people-online-for-free-8-best-ways/', (req, res) => {
+  res.render('blog/meet-new-people-online-for-free-8-best-ways', {
+    canonicalPath: '/blog/meet-new-people-online-for-free-8-best-ways/'
+  });
+});
+
 app.get('/legal/', (req, res) => {
   res.render('legal', {
     canonicalPath: '/legal/',
