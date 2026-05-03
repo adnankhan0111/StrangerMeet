@@ -163,6 +163,12 @@ app.get('/blog/meet-new-people-online-for-free-8-best-ways/', (req, res) => {
   });
 });
 
+app.get('/blog/is-it-safe-to-chat-with-strangers-online/', (req, res) => {
+  res.render('blog/is-it-safe-to-chat-with-strangers-online', {
+    canonicalPath: '/blog/is-it-safe-to-chat-with-strangers-online/'
+  });
+});
+
 app.get('/legal/', (req, res) => {
   res.render('legal', {
     canonicalPath: '/legal/',
