@@ -169,6 +169,12 @@ app.get('/blog/is-it-safe-to-chat-with-strangers-online/', (req, res) => {
   });
 });
 
+app.get('/blog/talk-to-strangers/', (req, res) => {
+  res.render('blog/talk-to-strangers', {
+    canonicalPath: '/blog/talk-to-strangers/'
+  });
+});
+
 app.get('/legal/', (req, res) => {
   res.render('legal', {
     canonicalPath: '/legal/',
