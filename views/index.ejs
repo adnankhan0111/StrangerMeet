@@ -449,7 +449,13 @@
     .cta-note { font-size: 0.78rem; margin-top: 0.9rem; opacity: 0.6; }
 
     /* ── Footer ── */
-   
+    /* ── Footer ── */
+    footer { margin-top: 4rem; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 1.5rem; margin-bottom: 1.2rem; }
+    .footer-links a { color: var(--light); text-decoration: none; opacity: 0.72; font-size: 0.9rem; transition: opacity 0.25s, color 0.25s; }
+    .footer-links a:hover { opacity: 1; color: var(--secondary); }
+    footer p { font-size: 0.82rem; opacity: 0.6; }
+ 
 
     /* ── Fade-in animation ── */
     .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -958,12 +964,12 @@
        FOOTER
   ══════════════════════════════════════════════════ -->
   <footer>
-    <nav class="footer-links" aria-label="Footer navigation">
+    <div class="footer-links" aria-label="Footer navigation">
       <a href="/legal/" title="Terms of Service and Privacy Policy">Terms &amp; Privacy</a>
       <a href="/about/" title="About Chatwithstrangers">About Us</a>
       <a href="/contact/" title="Contact Chatwithstrangers">Contact</a>
       <a href="/blog/best-omegle-alternatives/" title="Best Omegle Alternatives 2026">Blog</a>
-    </nav>
+    </div>
     <p>© 2026 <strong>Chatwithstrangers.fun</strong> — Free Random Video &amp; Text Chat with Strangers Online</p>
   </footer>
 
