@@ -742,7 +742,6 @@
     </div>
 
     <div class="cta-group">
-      <!-- Removed aria-label: button text is dynamic, visible text speaks for itself -->
       <button id="startVideo" class="btn btn-primary">
         <i class="fas fa-video" aria-hidden="true"></i> Start Video Chat — Free
       </button>
@@ -1155,7 +1154,6 @@
       <h2>Ready to Meet Someone New?</h2>
       <p>Join <strong>thousands of people online right now</strong> — your next interesting conversation is one click away.</p>
       <div class="cta-group">
-        <!-- Removed static aria-label; button text changes dynamically -->
         <button id="startVideo2" class="btn btn-primary">
           <i class="fas fa-play" aria-hidden="true"></i> Start Chatting — It's Free
         </button>
@@ -1184,8 +1182,59 @@
   </div>
 </footer>
 
-<!-- ✅ Socket.io — deferred -->
-<script defer src="/socket.io/socket.io.js"></script>
+<!-- ✅ Socket.io — loaded asynchronously, with onload/onerror handlers -->
+<script async 
+        src="/socket.io/socket.io.js" 
+        onload="initSocket()" 
+        onerror="handleSocketError()">
+</script>
+
+<script>
+/* ── Global socket initialization (called only when socket.io loads) ── */
+function initSocket() {
+  if (typeof io === 'undefined') return;
+
+  var socket = io();
+  var liveEl = document.getElementById('liveCount');
+
+  socket.on('updateUserCount', function (count) {
+    if (liveEl) liveEl.textContent = Number(count).toLocaleString();
+  });
+
+  socket.on('waiting', function () {
+    document.querySelectorAll('#startVideo, #startVideo2').forEach(function (btn) {
+      btn.innerHTML = '<i class="fas fa-user-clock" aria-hidden="true"></i> Waiting for someone…';
+      btn.disabled = true;
+    });
+  });
+
+  socket.on('start-chat', function (roomId) {
+    window.location.href = '/chat?room=' + roomId;
+  });
+
+  function startVideo(btn) {
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Finding someone…';
+    btn.disabled = true;
+    socket.emit('join-queue');
+  }
+
+  document.getElementById('startVideo').addEventListener('click', function () { startVideo(this); });
+  document.getElementById('startVideo2').addEventListener('click', function () { startVideo(this); });
+}
+
+/* ── Fallback if socket.io script fails to load ── */
+function handleSocketError() {
+  console.warn('Socket.IO failed to load. Video chat unavailable.');
+
+  var msg = '<i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Service Unavailable';
+  document.querySelectorAll('#startVideo, #startVideo2').forEach(function (btn) {
+    btn.innerHTML = msg;
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    btn.style.cursor = 'not-allowed';
+  });
+}
+</script>
 
 <script>
 (function () {
@@ -1259,44 +1308,6 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
     });
   });
-
-  /* ── Socket.io + Live Count + Video Start ── */
-  function initSocket() {
-    if (typeof io === 'undefined') return;
-
-    var socket = io();
-    var liveEl = document.getElementById('liveCount');
-
-    socket.on('updateUserCount', function (count) {
-      if (liveEl) liveEl.textContent = Number(count).toLocaleString();
-    });
-
-    socket.on('waiting', function () {
-      document.querySelectorAll('#startVideo, #startVideo2').forEach(function (btn) {
-        btn.innerHTML = '<i class="fas fa-user-clock" aria-hidden="true"></i> Waiting for someone…';
-        btn.disabled = true;
-      });
-    });
-
-    socket.on('start-chat', function (roomId) {
-      window.location.href = '/chat?room=' + roomId;
-    });
-
-    function startVideo(btn) {
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Finding someone…';
-      btn.disabled = true;
-      socket.emit('join-queue');
-    }
-
-    document.getElementById('startVideo').addEventListener('click', function () { startVideo(this); });
-    document.getElementById('startVideo2').addEventListener('click', function () { startVideo(this); });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { setTimeout(initSocket, 300); });
-  } else {
-    setTimeout(initSocket, 300);
-  }
 
 })();
 </script>
