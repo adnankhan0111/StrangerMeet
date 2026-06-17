@@ -1,530 +1,226 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chatwithstrangers - Video Chat</title>
-  <meta name="description" content="Enjoy free random video chat with strangers like Omegle. Meet new people worldwide instantly without registration and start live face-to-face conversations online.">
-  <meta name="keywords"
-    content="random video chat, chat with strangers, online video chat, meet new people, Chatwithstrangers, Chatwithstrangers, Free random video chat, top best free video chat, best random video chat">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="canonical" href="https://chatwithstrangers.fun/chat/">
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V92WH20EPP"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-V92WH20EPP');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4169258087382172"
-     crossorigin="anonymous"></script>
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
-<link rel="shortcut icon" href="/logo.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
-<link rel="manifest" href="/site.webmanifest">
-
+  <title>Chatwithstrangers - Random Video Chat</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V92WH20EPP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V92WH20EPP');
+  </script>
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
+  <link rel="shortcut icon" href="/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="manifest" href="/site.webmanifest">
   <style>
-    :root {
-      --primary: #6c5ce7;
-      --secondary: #a29bfe;
-      --dark: #2d3436;
-      --light: #f5f6fa;
-      --danger: #ff7675;
-      --success: #00b894;
-      --footer-height: 100px;
-      --controls-height: 80px;
-      --chat-bottom-space: 120px;
-      --mobile-footer-height: 70px;
-    }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: 'Poppins', sans-serif;
-      background: var(--dark);
-      color: var(--light);
-      height: calc(100vh - var(--footer-height));
-      margin-bottom: var(--footer-height);
+      background: #2d3436;
+      color: white;
       overflow: hidden;
-    }
-
-    #video-container {
       display: flex;
-      height: 100%;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-
-    .video-box {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 5px 0px 0px 10px yellow;
+    #video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 300px);
+      grid-auto-rows: 300px;
+      gap: 10px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 10px;
     }
-
-    .video-box::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.3);
-      z-index: 1;
-      transition: all 0.3s ease;
-    }
-
-    .video-box.active::before { background: transparent; }
-
     video {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scaleX(-1);
+      border-radius: 10px;
+      background: #000;
     }
-
-    #remote-video { transform: scaleX(1); }
-
-    .user-info {
-      position: absolute;
-      bottom: 20px; left: 20px;
-      z-index: 2;
-      background: rgba(0,0,0,0.5);
-      padding: 10px 15px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-    }
-
-    .user-info i { margin-right: 10px; color: var(--secondary); }
-
-    .loader {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 10;
-      text-align: center;
-    }
-
-    .spinner {
-      width: 50px; height: 50px;
-      border: 5px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: var(--primary);
-      animation: spin 1s ease-in-out infinite;
-      margin: 0 auto;
-    }
-
-    #footer-space {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      height: var(--footer-height);
-      background: rgba(0,0,0,0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 90;
-    }
-
-    .ad-container {
-      width: 100%; max-width: 970px;
-      height: 150px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: rgba(255,255,255,0.7);
-    }
-
     #controls {
       position: fixed;
-      bottom: calc(var(--footer-height) + 20px);
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       gap: 15px;
-      z-index: 100;
-      background: rgba(0,0,0,0.5);
-      padding: 10px 20px;
-      border-radius: 50px;
-      backdrop-filter: blur(10px);
+      z-index: 1000;
     }
-
     .control-btn {
-      width: 50px; height: 50px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      border: none;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid white;
       color: white;
       font-size: 1.2rem;
       cursor: pointer;
-      transition: all 0.3s ease;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-
-    .control-btn:hover { transform: scale(1.1); background: rgba(255,255,255,0.3); }
-    #end-btn { background: var(--danger); }
-
-    #chat-box {
-      position: fixed;
-      right: 20px;
-      bottom: calc(var(--footer-height) + var(--chat-bottom-space));
-      width: 350px;
-      max-height: 50vh;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-      z-index: 100;
-      transition: all 0.3s ease;
-    }
-
-    #chat-header {
-      padding: 15px;
-      background: rgba(0,0,0,0.2);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    #chat-toggle { background: none; border: none; color: white; font-size: 1rem; cursor: pointer; }
-
-    #messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 15px;
-    }
-
-    .message {
-      margin-bottom: 10px;
-      padding: 8px 12px;
-      border-radius: 15px;
-      max-width: 80%;
-      word-wrap: break-word;
-      animation: messageIn 0.3s ease-out;
-    }
-
-    .remote { background: var(--primary); color: white; align-self: flex-start; border-bottom-left-radius: 5px; }
-    .local { background: rgba(255,255,255,0.9); color: var(--dark); margin-left: auto; border-bottom-right-radius: 5px; }
-    .message-time { font-size: 0.7rem; opacity: 0.7; margin-top: 3px; text-align: right; }
-
-    #message-form {
-      display: flex;
-      padding: 10px;
-      background: rgba(0,0,0,0.1);
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    #message-input {
-      flex: 1;
-      padding: 12px 15px;
-      border: none;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.9);
-      outline: none;
-      font-size: 14px;
-      color: #333;
-    }
-
-    #send-btn {
-      margin-left: 10px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px; height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    #send-btn:hover { background: var(--secondary); transform: scale(1.05); }
-
-    #typing-indicator {
-      display: none;
-      padding: 0 15px 10px;
-      font-size: 12px;
-      color: #999;
-    }
-
-    .typing-dots { display: inline-flex; align-items: center; }
-    .typing-dots span {
-      width: 8px; height: 8px;
-      margin: 0 2px;
-      background-color: var(--secondary);
-      border-radius: 50%;
-      display: inline-block;
-      animation: typing 1.4s infinite both;
-    }
-    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes messageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    @media (max-width: 768px) {
-      :root { --footer-height: var(--mobile-footer-height); --chat-bottom-space: 90px; }
-      body { height: calc(93vh - var(--mobile-footer-height)); margin-bottom: var(--mobile-footer-height); }
-      #video-container { flex-direction: column; }
-      .video-box { height: 50vh; box-shadow: 0px 0px 5px yellow; }
-      #chat-box { width: 90%; right: 5%; bottom: calc(var(--mobile-footer-height) + 80px); max-height: 40vh; }
-      #controls { bottom: calc(var(--mobile-footer-height) + 50px); }
-    }
+    .control-btn:hover { background: rgba(255,255,255,0.2); }
+    #end-btn { background: #ff7675; border-color: #ff7675; }
   </style>
 </head>
-
 <body>
-  <div id="video-container">
-    <div class="video-box" id="remote-video-box">
-      <div class="loader" id="loader"><div class="spinner"></div><p>Connecting to stranger...</p></div>
-      <video id="remote-video" autoplay></video>
-      <div class="user-info"><i class="fas fa-user"></i><span>Stranger</span></div>
-      <div id="typing-indicator"><div class="typing-dots"><span></span><span></span><span></span></div><span>is typing...</span></div>
-    </div>
-    <div class="video-box" id="local-video-box">
-      <video id="local-video" autoplay muted></video>
-      <div class="user-info"><i class="fas fa-user"></i><span id="remote-username">You</span></div>
-    </div>
-  </div>
-
-  <div id="footer-space"><div class="ad-container"><p>Advertisement Space (970/412x150)</p></div></div>
+  <div id="video-grid"></div>
 
   <div id="controls">
-    <button class="control-btn" id="mute-btn" title="Mute"><i class="fas fa-microphone"></i></button>
-    <button class="control-btn" id="video-btn" title="Stop Video"><i class="fas fa-video"></i></button>
-    <button class="control-btn" id="chat-btn" title="Chat"><i class="fas fa-comment-dots"></i></button>
-    <button class="control-btn" id="next-btn" title="Next Stranger"><i class="fas fa-forward"></i></button>
-    <button class="control-btn" id="end-btn" title="End Call"><i class="fas fa-phone-slash"></i></button>
-  </div>
-
-  <div id="chat-box">
-    <div id="chat-header"><h3>Chat</h3><button id="chat-toggle"><i class="fas fa-times"></i></button></div>
-    <div id="messages"></div>
-    <form id="message-form">
-      <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
-      <button type="submit" id="send-btn"><i class="fas fa-paper-plane"></i></button>
-    </form>
+    <button class="control-btn" id="mute-btn"><i class="fas fa-microphone"></i></button>
+    <button class="control-btn" id="video-btn"><i class="fas fa-video"></i></button>
+    <button class="control-btn" id="next-btn"><i class="fas fa-forward"></i></button>
+    <button class="control-btn" id="end-btn"><i class="fas fa-phone-slash"></i></button>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const roomId = urlParams.get('room') || '<%= roomId %>';
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 
-    const localVideo = document.getElementById('local-video');
-    const remoteVideo = document.getElementById('remote-video');
-    const localVideoBox = document.getElementById('local-video-box');
-    const remoteVideoBox = document.getElementById('remote-video-box');
-    const loader = document.getElementById('loader');
-    const muteBtn = document.getElementById('mute-btn');
-    const videoBtn = document.getElementById('video-btn');
-    const chatBtn = document.getElementById('chat-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const endBtn = document.getElementById('end-btn');
-    const chatBox = document.getElementById('chat-box');
-    const chatToggle = document.getElementById('chat-toggle');
-    const messages = document.getElementById('messages');
-    const messageForm = document.getElementById('message-form');
-    const messageInput = document.getElementById('message-input');
-    const typingIndicator = document.getElementById('typing-indicator');
-    const footerSpace = document.getElementById('footer-space');
+  <script>
+    const roomId = '<%= roomId %>';
+    const socket = io('/');
+    const videoGrid = document.getElementById('video-grid');
+
+    const userId = Math.floor(Math.random() * 10000);
+    const myPeer = new Peer(userId);
+    const myVideo = document.createElement('video');
+    myVideo.muted = true;
+    const peers = {};
 
     let localStream;
-    let peer;
-    let currentCall;
     let isMuted = false;
     let isVideoOff = false;
-    let isChatOpen = true;
-    let isSkipping = false;   // flag to distinguish manual skip from partner disconnect
+    let isLeavingRoom = false;   // prevent re-queue when intentionally ending
 
-    const socket = io();
-    peer = new Peer();
+    // Get media
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        localStream = stream;
+        addVideoStream(myVideo, stream);
 
-    messageInput.focus();
-
-    messageForm.addEventListener('submit', (e) => { e.preventDefault(); sendMessage(); });
-    messageInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
-
-    let typingTimeout;
-    messageInput.addEventListener('input', () => {
-      socket.emit('typing', roomId, true);
-      clearTimeout(typingTimeout);
-      typingTimeout = setTimeout(() => socket.emit('typing', roomId, false), 1000);
-    });
-
-    function sendMessage() {
-      const msg = messageInput.value.trim();
-      if (!msg) return;
-      socket.emit('chat-message', roomId, msg);
-      addMessage(msg, true);
-      messageInput.value = '';
-      messageInput.focus();
-      socket.emit('typing', roomId, false);
-    }
-
-    function addMessage(text, isLocal = false) {
-      const div = document.createElement('div');
-      div.className = `message ${isLocal ? 'local' : 'remote'}`;
-      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      div.innerHTML = `<div class="message-content">${text}</div><div class="message-time">${time}</div>`;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function toggleChat() {
-      isChatOpen = !isChatOpen;
-      chatBox.style.display = isChatOpen ? 'flex' : 'none';
-      if (window.innerWidth <= 768) footerSpace.style.display = isChatOpen ? 'none' : 'flex';
-      if (isChatOpen) messageInput.focus();
-    }
-
-    chatBox.addEventListener('click', (e) => e.stopPropagation());
-
-    // ---------- Peer & Media ----------
-    peer.on('open', (id) => {
-      navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        .then(stream => {
-          localStream = stream;
-          localVideo.srcObject = stream;
-          socket.emit('ready', roomId, id);
-
-          peer.on('call', call => {
-            call.answer(localStream);
-            currentCall = call;
-            call.on('stream', remoteStream => {
-              remoteVideo.srcObject = remoteStream;
-              loader.style.display = 'none';
-              remoteVideoBox.classList.add('active');
-            });
-            call.on('close', () => { /* handled by cleanup */ });
+        myPeer.on('call', call => {
+          call.answer(stream);
+          const video = document.createElement('video');
+          call.on('stream', userVideoStream => {
+            addVideoStream(video, userVideoStream);
           });
-        })
-        .catch(err => console.error('Media error:', err));
-    });
+        });
 
-    // ---------- Server events ----------
-    socket.on('user-connected', (userId) => {
-      if (!localStream) return;
-      const call = peer.call(userId, localStream);
-      currentCall = call;
-      call.on('stream', remoteStream => {
-        remoteVideo.srcObject = remoteStream;
-        loader.style.display = 'none';
-        remoteVideoBox.classList.add('active');
-      });
-      call.on('close', () => {});
-    });
+        socket.on('user-connected', userId => {
+          connectToNewUser(userId, stream);
+        });
+      })
+      .catch(err => console.error('Media error:', err));
 
-    // Partner disconnected (not from our skip)
+    // Partner disconnected → auto‑reconnect
     socket.on('partner-disconnected', () => {
-      if (isSkipping) {
-        isSkipping = false;
-        return;           // we already cleaned up in nextPartner()
+      if (isLeavingRoom) return;
+
+      // Clear remote videos
+      videoGrid.querySelectorAll('video:not([muted])').forEach(v => v.remove());
+      for (let id in peers) {
+        peers[id].close();
+        delete peers[id];
       }
-      // Auto‑reconnect: wait a short moment then ask for a new partner
-      cleanupCall();
+
+      // Short delay then requeue
       setTimeout(() => {
-        requestNewPartner();
+        if (!isLeavingRoom) joinQueue();
       }, 1500);
     });
 
-    socket.on('chat-message', (msg) => addMessage(msg, false));
-    socket.on('typing', (isTyping) => { typingIndicator.style.display = isTyping ? 'block' : 'none'; });
+    myPeer.on('open', id => {
+      socket.emit('join-room', roomId, id);
+    });
+
+    // Socket event: when server sends user ID for connection
+    socket.on('user-connected', userId => {
+      if (localStream) connectToNewUser(userId, localStream);
+    });
+
+    // Fallback for older servers that emit 'user-disconnected' instead of 'partner-disconnected'
+    socket.on('user-disconnected', userId => {
+      if (peers[userId]) peers[userId].close();
+    });
+
+    function connectToNewUser(userId, stream) {
+      const call = myPeer.call(userId, stream);
+      const video = document.createElement('video');
+      call.on('stream', userVideoStream => {
+        addVideoStream(video, userVideoStream);
+      });
+      call.on('close', () => {
+        video.remove();
+      });
+      peers[userId] = call;
+    }
+
+    function addVideoStream(video, stream) {
+      video.srcObject = stream;
+      video.addEventListener('loadedmetadata', () => {
+        video.play();
+      });
+      videoGrid.append(video);
+    }
 
     // ---------- Controls ----------
-    muteBtn.addEventListener('click', () => {
+    // Mute toggle
+    document.getElementById('mute-btn').addEventListener('click', () => {
       if (!localStream) return;
-      const tracks = localStream.getAudioTracks();
+      const audioTracks = localStream.getAudioTracks();
       isMuted = !isMuted;
-      tracks.forEach(t => t.enabled = !isMuted);
-      muteBtn.innerHTML = isMuted ? '<i class="fas fa-microphone-slash"></i>' : '<i class="fas fa-microphone"></i>';
+      audioTracks.forEach(t => t.enabled = !isMuted);
+      document.getElementById('mute-btn').innerHTML = isMuted
+        ? '<i class="fas fa-microphone-slash"></i>'
+        : '<i class="fas fa-microphone"></i>';
     });
 
-    videoBtn.addEventListener('click', () => {
+    // Video toggle
+    document.getElementById('video-btn').addEventListener('click', () => {
       if (!localStream) return;
-      const tracks = localStream.getVideoTracks();
+      const videoTracks = localStream.getVideoTracks();
       isVideoOff = !isVideoOff;
-      tracks.forEach(t => t.enabled = !isVideoOff);
-      videoBtn.innerHTML = isVideoOff ? '<i class="fas fa-video-slash"></i>' : '<i class="fas fa-video"></i>';
-      localVideoBox.classList.toggle('active', !isVideoOff);
+      videoTracks.forEach(t => t.enabled = !isVideoOff);
+      document.getElementById('video-btn').innerHTML = isVideoOff
+        ? '<i class="fas fa-video-slash"></i>'
+        : '<i class="fas fa-video"></i>';
     });
 
-    chatBtn.addEventListener('click', toggleChat);
-    chatToggle.addEventListener('click', toggleChat);
-
-    // ---------- Next button (skip) ----------
-    nextBtn.addEventListener('click', nextPartner);
-
-    function nextPartner() {
-      if (!localStream || isSkipping) return;
-      isSkipping = true;
-      cleanupCall();
-      requestNewPartner();
-    }
-
-    function cleanupCall() {
-      if (currentCall) {
-        currentCall.close();
-        currentCall = null;
+    // Next / Skip button
+    document.getElementById('next-btn').addEventListener('click', () => {
+      if (!localStream || isLeavingRoom) return;
+      // Leave current room
+      socket.emit('leave-room', roomId);
+      // Stop remote connections and clear videos
+      for (let id in peers) {
+        peers[id].close();
+        delete peers[id];
       }
-      remoteVideo.srcObject = null;
-      loader.style.display = 'block';
-      remoteVideoBox.classList.remove('active');
-      // Keep local stream alive
-    }
+      videoGrid.querySelectorAll('video:not([muted])').forEach(v => v.remove());
+      // Rejoin queue
+      joinQueue();
+    });
 
-    function requestNewPartner() {
-      // Emit 'next' to server – it should handle re‑matching in the same room
-      socket.emit('next', roomId);
-    }
-
-    // ---------- End call ----------
-    endBtn.addEventListener('click', () => {
-      // Stop everything and go home, replacing history so back button won't return here
-      if (currentCall) currentCall.close();
+    // End call button
+    document.getElementById('end-btn').addEventListener('click', () => {
+      isLeavingRoom = true;
       if (localStream) localStream.getTracks().forEach(t => t.stop());
       socket.emit('leave-room', roomId);
       window.location.replace('/');
     });
 
-    // ---------- Ad rotation (sample) ----------
-    const adBanner = document.querySelector('.ad-container');
-    const ads = [
-      "Connect Your business with Us To See worldwide",
-      "Sponsored: For sponsor contact ak786lawa@gmail.com",
-      "Advertisement: Partner with us today"
-    ];
-    let currentAd = 0;
-    setInterval(() => {
-      currentAd = (currentAd + 1) % ads.length;
-      adBanner.innerHTML = `<p>${ads[currentAd]}</p>`;
-    }, 5000);
-
-    // ---------- Responsive adjustments ----------
-    function handleResponsive() {
-      if (window.innerWidth <= 768) {
-        document.documentElement.style.setProperty('--footer-height', '70px');
-        chatBox.style.maxHeight = '40vh';
-      } else {
-        document.documentElement.style.setProperty('--footer-height', '100px');
-        chatBox.style.maxHeight = '50vh';
-      }
+    // Helper: rejoin queue
+    function joinQueue() {
+      // Emit same event as home page would
+      socket.emit('join-queue', { language: null, interests: [] });
     }
-    window.addEventListener('resize', handleResponsive);
-    window.addEventListener('load', handleResponsive);
   </script>
 </body>
 </html>
