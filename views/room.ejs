@@ -1,74 +1,228 @@
-const io = require('socket.io')(server);
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chatwithstrangers - Random Video Chat</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V92WH20EPP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V92WH20EPP');
+  </script>
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
+  <link rel="shortcut icon" href="/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #2d3436;
+      color: white;
+      overflow: hidden;
+    }
+    #video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 300px);
+      grid-auto-rows: 300px;
+      gap: 10px;
+      padding: 10px;
+      height: 100vh;
+      justify-content: center;
+      align-content: center;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    #controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 1000;
+    }
+    .control-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .control-btn:hover { background: rgba(255,255,255,0.2); }
+    #end-btn { background: #ff7675; border-color: #ff7675; }
+  </style>
+</head>
+<body>
+  <div id="video-grid"></div>
 
-// Queue of sockets waiting for a partner
-const waitingUsers = [];
+  <div id="controls">
+    <button class="control-btn" id="mute-btn"><i class="fas fa-microphone"></i></button>
+    <button class="control-btn" id="video-btn"><i class="fas fa-video"></i></button>
+    <button class="control-btn" id="next-btn"><i class="fas fa-forward"></i></button>
+    <button class="control-btn" id="end-btn"><i class="fas fa-phone-slash"></i></button>
+  </div>
 
-io.on('connection', (socket) => {
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script>
+    const roomId = '<%= roomId %>';
+    const socket = io('/');
+    const videoGrid = document.getElementById('video-grid');
 
-  // Store peer ID when client opens PeerJS
-  socket.on('join-room', (roomId, peerId) => {
-    socket.peerId = peerId;
-    socket.join(roomId);
-    socket.currentRoom = roomId;
-    // Notify other users in the room (if any) about the new user
-    socket.to(roomId).emit('user-connected', peerId);
-  });
+    const userId = Math.floor(Math.random() * 10000);
+    const myPeer = new Peer(userId);
+    const myVideo = document.createElement('video');
+    myVideo.muted = true;
+    const peers = {};
 
-  // User wants to start / re‑match (from home page or Next button)
-  socket.on('join-queue', (preferences) => {
-    // Remove from any existing room
-    if (socket.currentRoom) {
-      socket.leave(socket.currentRoom);
-      socket.to(socket.currentRoom).emit('partner-disconnected');
-      socket.currentRoom = null;
+    let localStream;
+    let isMuted = false;
+    let isVideoOff = false;
+    let isLeaving = false;   // prevent re-queue when ending
+
+    // Get media
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        localStream = stream;
+        addVideoStream(myVideo, stream);
+
+        myPeer.on('call', call => {
+          call.answer(stream);
+          const video = document.createElement('video');
+          call.on('stream', userVideoStream => {
+            addVideoStream(video, userVideoStream);
+          });
+        });
+
+        socket.on('user-connected', userId => {
+          connectToNewUser(userId, stream);
+        });
+      })
+      .catch(err => console.error('Media error:', err));
+
+    // Partner disconnected – auto‑reconnect
+    socket.on('partner-disconnected', () => {
+      if (isLeaving) return;
+
+      // Remove remote videos
+      document.querySelectorAll('#video-grid video:not([muted])').forEach(v => v.remove());
+      for (let id in peers) {
+        peers[id].close();
+        delete peers[id];
+      }
+
+      // Show notification
+      const notification = document.createElement('div');
+      notification.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:white;padding:10px 20px;border-radius:30px;z-index:200;';
+      notification.textContent = 'Stranger disconnected. Finding someone new...';
+      document.body.appendChild(notification);
+      setTimeout(() => notification.remove(), 3000);
+
+      // Re‑queue after short delay
+      setTimeout(() => {
+        if (!isLeaving) {
+          socket.emit('join-queue', { language: null, interests: [] });
+        }
+      }, 1500);
+    });
+
+    // Fallback for older servers that emit 'user-disconnected'
+    socket.on('user-disconnected', userId => {
+      if (peers[userId]) {
+        peers[userId].close();
+        delete peers[userId];
+      }
+    });
+
+    myPeer.on('open', id => {
+      socket.emit('join-room', roomId, id);
+    });
+
+    function connectToNewUser(userId, stream) {
+      const call = myPeer.call(userId, stream);
+      const video = document.createElement('video');
+      call.on('stream', userVideoStream => {
+        addVideoStream(video, userVideoStream);
+      });
+      call.on('close', () => {
+        video.remove();
+        if (peers[userId]) delete peers[userId];
+      });
+      peers[userId] = call;
     }
 
-    // Remove from waiting list if already there
-    const idx = waitingUsers.indexOf(socket);
-    if (idx !== -1) waitingUsers.splice(idx, 1);
-
-    // Add to queue
-    waitingUsers.push(socket);
-
-    // Match two users
-    if (waitingUsers.length >= 2) {
-      const user1 = waitingUsers.shift();
-      const user2 = waitingUsers.shift();
-      const room = `room_${Date.now()}`;
-
-      user1.join(room);
-      user2.join(room);
-      user1.currentRoom = room;
-      user2.currentRoom = room;
-
-      // Both users are now in the same room.
-      // Emit the peer IDs so they can connect via PeerJS.
-      user2.emit('user-connected', user1.peerId);
-      user1.emit('user-connected', user2.peerId);
-
-      // Optionally send the room ID to both (already known via 'join-room')
+    function addVideoStream(video, stream) {
+      video.srcObject = stream;
+      video.addEventListener('loadedmetadata', () => {
+        video.play();
+      });
+      videoGrid.append(video);
     }
-  });
 
-  // User clicked "End" or "Next" -> leave the room
-  socket.on('leave-room', (roomId) => {
-    socket.leave(roomId);
-    if (socket.currentRoom) {
-      socket.to(socket.currentRoom).emit('partner-disconnected');
-      socket.currentRoom = null;
-    }
-  });
+    // ============ CONTROLS ============
+    // Mute toggle
+    document.getElementById('mute-btn').addEventListener('click', () => {
+      if (!localStream) return;
+      const audioTracks = localStream.getAudioTracks();
+      isMuted = !isMuted;
+      audioTracks.forEach(t => t.enabled = !isMuted);
+      document.getElementById('mute-btn').innerHTML = isMuted
+        ? '<i class="fas fa-microphone-slash"></i>'
+        : '<i class="fas fa-microphone"></i>';
+    });
 
-  // Handle user disconnection
-  socket.on('disconnect', () => {
-    // Remove from waiting queue
-    const idx = waitingUsers.indexOf(socket);
-    if (idx !== -1) waitingUsers.splice(idx, 1);
+    // Video toggle
+    document.getElementById('video-btn').addEventListener('click', () => {
+      if (!localStream) return;
+      const videoTracks = localStream.getVideoTracks();
+      isVideoOff = !isVideoOff;
+      videoTracks.forEach(t => t.enabled = !isVideoOff);
+      document.getElementById('video-btn').innerHTML = isVideoOff
+        ? '<i class="fas fa-video-slash"></i>'
+        : '<i class="fas fa-video"></i>';
+    });
 
-    // Notify partner if in a room
-    if (socket.currentRoom) {
-      socket.to(socket.currentRoom).emit('partner-disconnected');
-      socket.leave(socket.currentRoom);
-    }
-  });
-});
+    // Next / Skip button
+    document.getElementById('next-btn').addEventListener('click', () => {
+      if (!localStream || isLeaving) return;
+      // Close all peer connections and remove remote videos
+      for (let id in peers) {
+        peers[id].close();
+        delete peers[id];
+      }
+      document.querySelectorAll('#video-grid video:not([muted])').forEach(v => v.remove());
+      // Leave current room
+      socket.emit('leave-room', roomId);
+      // Re‑queue for a new partner
+      socket.emit('join-queue', { language: null, interests: [] });
+    });
+
+    // End call button
+    document.getElementById('end-btn').addEventListener('click', () => {
+      isLeaving = true;
+      if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+      }
+      for (let id in peers) {
+        peers[id].close();
+      }
+      socket.emit('leave-room', roomId);
+      window.location.replace('/');
+    });
+  </script>
+</body>
+</html>
