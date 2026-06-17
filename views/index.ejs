@@ -713,10 +713,10 @@
   ════════════════════════════════════════ -->
   <section class="hero" aria-labelledby="h1">
 
-    <div class="hero-eyebrow">
-      <span class="live-dot"></span>
-      <span id="liveCount">5,284</span> people chatting right now
-    </div>
+    <div class="stat-badge">
+        <span class="dot" aria-hidden="true"></span>
+        <span><span id="liveCount">5,284</span> Online Now</span>
+      </div>
 
     <!--
       SEO H1: primary keyword "chat with strangers" first, 
@@ -742,7 +742,7 @@
     </div>
 
     <div class="cta-group">
-      <button id="startVideo" class="btn btn-primary" aria-label="Start free random video chat with strangers — no sign up required">
+      <button id="startChat" class="btn btn-primary"  aria-label="Start free random video chat with strangers — no sign up">
         <i class="fas fa-video" aria-hidden="true"></i> Start Video Chat — Free
       </button>
       <a href="/text-chat" class="btn btn-ghost" aria-label="Start anonymous text chat with strangers online">
@@ -1156,9 +1156,9 @@
       <h2>Ready to Meet Someone New?</h2>
       <p>Join <strong>thousands of people online right now</strong> — your next interesting conversation is one click away.</p>
       <div class="cta-group">
-        <button id="startVideo2" class="btn btn-primary" aria-label="Start free random video chat now">
-          <i class="fas fa-play" aria-hidden="true"></i> Start Chatting — It's Free
-        </button>
+        <button id="startChat2" class="btn btn-primary" aria-label="Start free random video chat with strangers now">
+        <i class="fas fa-play" aria-hidden="true"></i> Start Chatting — It's Free
+      </button>
         <a href="/text-chat" class="btn btn-ghost" aria-label="Start anonymous text chat">
           <i class="fas fa-comment-dots" aria-hidden="true"></i> Text Chat Instead
         </a>
@@ -1184,114 +1184,147 @@
   </div>
 </footer>
 
-<!-- ✅ Socket.io — deferred -->
+<!-- ✅ Socket.io — deferred, non-blocking -->
 <script defer src="/socket.io/socket.io.js"></script>
 
 <script>
-(function () {
+(function() {
   'use strict';
 
   /* ── Mobile Nav ── */
-  var menuBtn = document.getElementById('menuBtn');
-  var navLinks = document.getElementById('navLinks');
-  var overlay = document.getElementById('overlay');
-  var nav = document.getElementById('nav');
+  var menuBtn    = document.getElementById('mobileMenuBtn');
+  var navLinks   = document.getElementById('navLinks');
+  var navOverlay = document.getElementById('navOverlay');
+  var navbar     = document.getElementById('navbar');
 
   function openNav() {
-    navLinks.classList.add('open');
-    overlay.classList.add('show');
+    navLinks.classList.add('active');
+    navOverlay.classList.add('active');
     menuBtn.setAttribute('aria-expanded', 'true');
-    menuBtn.innerHTML = '&#10005;';
+    menuBtn.setAttribute('aria-label', 'Close navigation menu');
+    menuBtn.querySelector('span').innerHTML = '&#10005;';
     document.body.style.overflow = 'hidden';
   }
+
   function closeNav() {
-    navLinks.classList.remove('open');
-    overlay.classList.remove('show');
+    navLinks.classList.remove('active');
+    navOverlay.classList.remove('active');
     menuBtn.setAttribute('aria-expanded', 'false');
-    menuBtn.innerHTML = '&#9776;';
+    menuBtn.setAttribute('aria-label', 'Open navigation menu');
+    menuBtn.querySelector('span').innerHTML = '&#9776;';
     document.body.style.overflow = '';
   }
 
-  menuBtn.addEventListener('click', function () {
-    navLinks.classList.contains('open') ? closeNav() : openNav();
+  menuBtn.addEventListener('click', function() {
+    navLinks.classList.contains('active') ? closeNav() : openNav();
   });
-  overlay.addEventListener('click', closeNav);
-  navLinks.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeNav); });
 
-  /* ── Sticky nav ── */
-  var solid = false;
-  window.addEventListener('scroll', function () {
-    var s = window.scrollY > 40;
-    if (s !== solid) { nav.classList.toggle('solid', s); solid = s; }
+  navOverlay.addEventListener('click', closeNav);
+
+  document.querySelectorAll('.nav-links a').forEach(function(link) {
+    link.addEventListener('click', closeNav);
+  });
+
+  /* ── Scroll: shrink nav ── */
+  var scrolled = false;
+  window.addEventListener('scroll', function() {
+    var should = window.scrollY > 50;
+    if (should !== scrolled) {
+      navbar.classList.toggle('scrolled', should);
+      scrolled = should;
+    }
   }, { passive: true });
 
-  /* ── Scroll reveal ── */
+  /* ── Fade-in on scroll (IntersectionObserver) ── */
   if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    var fadeObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
       });
-    }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+      fadeObserver.observe(el);
+    });
   } else {
-    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    // Fallback for old browsers
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+      el.classList.add('visible');
+    });
   }
 
   /* ── FAQ Accordion ── */
-  document.querySelectorAll('.faq-q').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var item = btn.closest('.faq-item');
-      var open = item.classList.contains('open');
+  document.querySelectorAll('.faq-question').forEach(function(question) {
+    question.addEventListener('click', function() {
+      var item     = question.closest('.faq-item');
+      var isActive = item.classList.contains('active');
 
-      document.querySelectorAll('.faq-item').forEach(function (i) {
-        i.classList.remove('open');
-        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(function(i) {
+        i.classList.remove('active');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        i.querySelector('.faq-icon').textContent = '+';
       });
 
-      if (!open) {
-        item.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
+      if (!isActive) {
+        item.classList.add('active');
+        question.setAttribute('aria-expanded', 'true');
+        question.querySelector('.faq-icon').textContent = '×';
       }
     });
-    btn.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+
+    question.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        question.click();
+      }
     });
   });
 
-  /* ── Socket.io + Live Count + Video Start ── */
+  /* ── Socket.io + Live Count ── */
   function initSocket() {
     if (typeof io === 'undefined') return;
 
     var socket = io();
     var liveEl = document.getElementById('liveCount');
 
-    socket.on('updateUserCount', function (count) {
+    socket.on('updateUserCount', function(count) {
       if (liveEl) liveEl.textContent = Number(count).toLocaleString();
     });
 
-    socket.on('waiting', function () {
-      document.querySelectorAll('#startVideo, #startVideo2').forEach(function (btn) {
+    socket.on('waiting', function() {
+      document.querySelectorAll('#startChat, #startChat2').forEach(function(btn) {
         btn.innerHTML = '<i class="fas fa-user-clock" aria-hidden="true"></i> Waiting for someone…';
         btn.disabled = true;
       });
     });
 
-    socket.on('start-chat', function (roomId) {
+    socket.on('start-chat', function(roomId) {
       window.location.href = '/chat?room=' + roomId;
     });
 
-    function startVideo(btn) {
+    function startVideoChat(btn) {
       btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Finding someone…';
       btn.disabled = true;
       socket.emit('join-queue');
     }
 
-    document.getElementById('startVideo').addEventListener('click', function () { startVideo(this); });
-    document.getElementById('startVideo2').addEventListener('click', function () { startVideo(this); });
+    document.getElementById('startChat').addEventListener('click', function() {
+      startVideoChat(this);
+    });
+    document.getElementById('startChat2').addEventListener('click', function() {
+      startVideoChat(this);
+    });
   }
 
+  // Wait for socket.io script to load
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { setTimeout(initSocket, 300); });
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initSocket, 300);
+    });
   } else {
     setTimeout(initSocket, 300);
   }
