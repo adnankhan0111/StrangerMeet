@@ -800,7 +800,9 @@
       remoteVideo.srcObject = null;
 
       setTimeout(() => {
-        window.location.href = '/';
+        // replace() swaps this history entry instead of adding a new one,
+        // so pressing Back from Home won't land on this dead chat room
+        window.location.replace('/');
       }, 1500);
     }
 
@@ -808,6 +810,15 @@
 
     // Handle page refresh/close
     window.addEventListener('beforeunload', endCall);
+
+    // Safety net: if this page is ever restored from the browser's
+    // back/forward cache (e.g. user presses Back from Home), the socket
+    // and peer connection here are already dead — bounce back to Home.
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+        window.location.replace('/');
+      }
+    });
 
     // Sample ad rotation
     const adBanner = document.querySelector('.ad-container');
